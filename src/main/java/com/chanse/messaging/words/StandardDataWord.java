@@ -4,6 +4,7 @@ package com.chanse.messaging.words;
 import com.chanse.messaging.bitUtils.StandardUtils;
 import com.chanse.messaging.exceptions.BadFieldWriteException;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class StandardDataWord extends InterfaceDataWord{
 
     @Override

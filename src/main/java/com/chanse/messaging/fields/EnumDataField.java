@@ -2,6 +2,7 @@ package com.chanse.messaging.fields;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class EnumDataField extends InterfaceDataField {
 
     /**
@@ -29,20 +31,6 @@ public class EnumDataField extends InterfaceDataField {
     }
 
     protected List<FieldSpecificEnum> allowedEnums;
-
-    @Override
-    public void createAndAttachMyDataChangeListener() {
-        myDataChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                // Only check if the value on the line has changed.
-                if( ((FieldSpecificEnum)propertyChangeEvent.getNewValue()).getEnumValue() != ((FieldSpecificEnum)propertyChangeEvent.getOldValue()).getEnumValue()){
-                    dataHasChanged = true;
-                    dataValue = new BigInteger( ((FieldSpecificEnum)propertyChangeEvent.getNewValue()).getEnumValue().toString());
-                }
-            }
-        };
-    }
 
     @Override
     public String getFieldAsBinaryString() {

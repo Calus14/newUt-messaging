@@ -1,7 +1,9 @@
 package com.chanse.messaging.fields;
 
+import com.chanse.messaging.bitUtils.StandardUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,27 +16,12 @@ import java.math.BigInteger;
  */
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class IntegerDataField extends InterfaceDataField {
-
-
-    @Override
-    public void createAndAttachMyDataChangeListener() {
-        myDataChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                if( ((Integer)propertyChangeEvent.getNewValue()).intValue() !=
-                    ((Integer)propertyChangeEvent.getOldValue()).intValue() )
-                {
-                    dataHasChanged = true;
-                    dataValue = (BigInteger)propertyChangeEvent.getNewValue();
-                }
-            }
-        };
-    }
 
     @Override
     // TODO handle negative value and sign extention
     public String getFieldAsBinaryString() {
-        return this.dataValue.toString(2);
+        return StandardUtils.getBinaryStringFromBigInt(this.dataValue, (int)this.bitLength);
     }
 }

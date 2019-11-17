@@ -1,12 +1,15 @@
 package com.chanse.messaging.messages;
 
+import com.chanse.messaging.bitUtils.StandardUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class StandardMessage extends InterfaceMessage {
 
     /**
@@ -24,6 +27,22 @@ public class StandardMessage extends InterfaceMessage {
             if(word.isFieldDataHasChanged()){
                 String wordAsBinaryString = word.getWordData().toString(2);
                 this.messageAsSerialString.replace(bitsChecked.get(), wordAsBinaryString.length(), wordAsBinaryString);
+            }
+            bitsChecked.addAndGet(word.getNumberOfBytes() * 8);
+        });
+    }
+
+    /**
+     *
+     */
+    public void initializeMessageBinaryString(){
+        AtomicInteger bitsChecked = new AtomicInteger();
+        dataWords.stream().forEach( word -> {
+            String wordAsBinaryString = StandardUtils.getBinaryStringFromBigInt(word.getWordData(), word.getNumberOfBytes() * 8);
+            try{
+                this.messageAsSerialString.replace(bitsChecked.get(), wordAsBinaryString.length(), wordAsBinaryString);
+            }catch(Exception e){
+                e.getMessage();
             }
             bitsChecked.addAndGet(word.getNumberOfBytes() * 8);
         });

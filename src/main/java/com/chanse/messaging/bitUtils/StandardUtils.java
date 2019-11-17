@@ -40,8 +40,22 @@ public class StandardUtils {
             throw new BadFieldWriteException("Unable to peek at bits on the given inputData stream because the offset:"+offset+
                     " and length:" +length+ " overflows the input data with "+inputData.length+" bytes.");
 
-        String inputAsBinaryString = new BigInteger(inputData).toString(2);
-        return new BigInteger(inputAsBinaryString.substring(offset, length), 2);
+        String inputAsBinaryString = getBinaryStringFromBigInt(new BigInteger(inputData), inputData.length*8);
+        String newString = inputAsBinaryString.substring(offset, offset+length);
+        return new BigInteger(inputAsBinaryString.substring(offset, offset+length), 2);
+    }
+
+    /**
+     * Util method to take a BigInteger and create a binary string from it.
+     * Specifically needed because toString does not add 0padding
+     */
+    public static String getBinaryStringFromBigInt(BigInteger bigInt, int bitCount){
+        String unpaddedString = bigInt.toString(2);
+        StringBuffer paddingString = new StringBuffer();
+        for(int i = 0; i<bitCount-unpaddedString.length(); i++)
+            paddingString.append("0");
+        return paddingString.toString()+unpaddedString;
+
     }
 
     /**
@@ -116,7 +130,7 @@ public class StandardUtils {
      */
     public static void insertFieldIntoWord(InterfaceDataWord word, InterfaceDataField field) throws BadFieldWriteException {
         // Check to see if the word not enough room to even write this field int
-        if ((word.getWordData().toByteArray().length * 8) < field.getBitOffset() + field.getBitLength())
+        if ((word.getNumberOfBytes() * 8) < field.getBitOffset() + field.getBitLength())
             throw new BadFieldWriteException("Word with name " + word.getWordName() + " has only a data buffer of " + word.getWordData().toByteArray().length
                     + "\nWe are trying to place a field named " + field.getName() + " into it who has an offset of " + field.getBitOffset() + " and length of "
                     + field.getBitLength());
@@ -125,7 +139,7 @@ public class StandardUtils {
         // Object and a big Integer Object has a cost associated with it.
 
         String fieldDataBinaryString = field.getFieldAsBinaryString();
-        StringBuffer wordDataBinaryString = new StringBuffer(word.getWordData().toString(2));
+        StringBuffer wordDataBinaryString = new StringBuffer(getBinaryStringFromBigInt( word.getWordData(), word.getNumberOfBytes()*8 ));
         wordDataBinaryString.replace((int) field.getBitOffset(), (int) (field.getBitOffset() + field.getBitLength()), fieldDataBinaryString);
         word.setWordData(new BigInteger(wordDataBinaryString.toString(), 2));
     }

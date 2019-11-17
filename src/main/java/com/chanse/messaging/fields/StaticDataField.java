@@ -2,6 +2,7 @@ package com.chanse.messaging.fields;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,6 +15,7 @@ import java.math.BigInteger;
  */
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class StaticDataField extends InterfaceDataField {
 
     @Override
@@ -24,16 +26,6 @@ public class StaticDataField extends InterfaceDataField {
     @Override
     public void setDataValue(BigInteger dataValue){
         // Return;
-    }
-
-    @Override
-    public void createAndAttachMyDataChangeListener() {
-        myDataChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                // Do nothing. That is what makes the static Data Field Unique
-            }
-        };
     }
 
     @Override
