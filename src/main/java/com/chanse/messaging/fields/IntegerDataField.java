@@ -13,6 +13,8 @@ import java.math.BigInteger;
  * Standard class for most all fields on a message interface. Simply holds an integer value across some bits
  * On change of any of these values its local data will be updated and its flag will also be updated but its on the word
  * or message or whoever to actually go update the entire data
+ *
+ * Data value of a Integer Data Field will be a BigInteger
  */
 @Data
 @AllArgsConstructor
@@ -20,8 +22,24 @@ import java.math.BigInteger;
 public class IntegerDataField extends InterfaceDataField {
 
     @Override
-    // TODO handle negative value and sign extention
-    public String getFieldAsBinaryString() {
-        return StandardUtils.getBinaryStringFromBigInt(this.dataValue, (int)this.bitLength);
+    protected void updateBinaryString() {
+        if(dataValue == null){
+            this.dataValue = new BigInteger("0");
+            this.dataBinaryString = "";
+        }
+        else {
+            this.dataBinaryString = StandardUtils.getBinaryStringFromBigInt((BigInteger) dataValue, (int) bitLength);
+        }
+    }
+
+    @Override
+    protected void updateDataValue() {
+        if(this.dataBinaryString == null){
+            this.dataBinaryString = "";
+            this.dataValue = new BigInteger("0");
+        }
+        else{
+            this.dataValue = new BigInteger(this.dataBinaryString, 2);
+        }
     }
 }

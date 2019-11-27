@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class Utils {
 
-    static Random myRandom = new Random();
+    public static Random myRandom = new Random();
 
     public static InterfaceDataField getRandomIntegerDataField(int bits, int offset){
         IntegerDataField randomField = new IntegerDataField();
@@ -24,7 +24,19 @@ public class Utils {
         randomField.setBitOffset(offset);
 
         int randomIntValue =  bits > 1 ? myRandom.nextInt( (int)Math.pow((double)bits-1, 2.0) ) : myRandom.nextInt() % 2;
-        randomField.setDataValue(new BigInteger( Integer.toString(randomIntValue) ) );
+        StringBuilder randomBuilder = new StringBuilder();
+        for(int i = 0; i<bits; i++){
+            if( myRandom.nextBoolean() )
+                randomBuilder.append("1");
+            else
+                randomBuilder.append("0");
+        }
+        try {
+            randomField.setDataBinaryString(randomBuilder.toString());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
         return randomField;
     }
@@ -40,7 +52,7 @@ public class Utils {
         while(bitsLeft > 0){
             // 1/4 chance that there is no field next (spare fields)
             boolean isSpareField = myRandom.nextInt()%4==0;
-            int fieldBits = Math.abs((myRandom.nextInt() % 32)+1);
+            int fieldBits = Math.abs((myRandom.nextInt() % 32))+1;
             fieldBits = fieldBits > bitsLeft ? bitsLeft : fieldBits;
 
             // Build the field and set a name on it.
@@ -70,7 +82,7 @@ public class Utils {
 
         for( int i = 0; i<wordCount; i++){
             // Random Number of Bytes for this word
-            int wordLength = myRandom.nextInt()%20;
+            int wordLength = Math.abs(myRandom.nextInt()%20);
             randomMessage.addDataWord(getRandomStandardDataWord(wordLength));
         }
 

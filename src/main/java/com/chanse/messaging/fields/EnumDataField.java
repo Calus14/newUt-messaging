@@ -1,11 +1,13 @@
 package com.chanse.messaging.fields;
 
+import com.chanse.messaging.bitUtils.StandardUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -19,13 +21,15 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class EnumDataField extends InterfaceDataField {
 
+    static final FieldSpecificEnum UT_ERROR_ENUM = new FieldSpecificEnum("UT_Internal_Error", 0);
+
     /**
      * An internal class for the purpose of allowing us to use spring libraries in the future if we want to rather
      * than the native java enum This could be very helpfull for communicating intraservice, saving/loading, and suprisingly taxes!
      */
     @Data
     @AllArgsConstructor
-    protected class FieldSpecificEnum{
+    static protected class FieldSpecificEnum{
         protected String enumName;
         protected Integer enumValue;
     }
@@ -33,7 +37,25 @@ public class EnumDataField extends InterfaceDataField {
     protected List<FieldSpecificEnum> allowedEnums;
 
     @Override
-    public String getFieldAsBinaryString() {
-        return this.dataValue.toString(2);
+    protected void updateBinaryString() {
+        BigInteger bigIntEnumRepresentation = BigInteger.valueOf( ((FieldSpecificEnum)dataValue).enumValue.intValue() );
+        this.dataBinaryString = StandardUtils.getBinaryStringFromBigInt(bigIntEnumRepresentation, (int) bitLength);
+    }
+
+    @Override
+    protected void updateDataValue() {
+        if(this.dataBinaryString == null){
+            this.dataBinaryString = "";
+            this.dataValue = UT_ERROR_ENUM;
+        }
+        else{
+            int intFieldValue = new BigInteger(this.dataBinaryString, 2).intValue();
+            for(FieldSpecificEnum e : allowedEnums){
+                if(e.enumValue.intValue() == intFieldValue){
+                    this.dataValue = e;
+                    break;
+                }
+            }
+        }
     }
 }

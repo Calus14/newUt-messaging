@@ -25,7 +25,7 @@ public class StandardMessage extends InterfaceMessage {
         AtomicInteger bitsChecked = new AtomicInteger();
         dataWords.stream().forEach( word -> {
             if(word.isFieldDataHasChanged()){
-                String wordAsBinaryString = word.getWordData().toString(2);
+                String wordAsBinaryString = word.getWordDataAsBinaryString();
                 this.messageAsSerialString.replace(bitsChecked.get(), wordAsBinaryString.length(), wordAsBinaryString);
             }
             bitsChecked.addAndGet(word.getNumberOfBytes() * 8);
@@ -33,18 +33,14 @@ public class StandardMessage extends InterfaceMessage {
     }
 
     /**
-     *
+     * Method that will initialize the binary string for the message. Essentially clearing the string and setting it to
+     * whatever data each word holds
      */
     public void initializeMessageBinaryString(){
-        AtomicInteger bitsChecked = new AtomicInteger();
+        this.messageAsSerialString = new StringBuffer();
+
         dataWords.stream().forEach( word -> {
-            String wordAsBinaryString = StandardUtils.getBinaryStringFromBigInt(word.getWordData(), word.getNumberOfBytes() * 8);
-            try{
-                this.messageAsSerialString.replace(bitsChecked.get(), wordAsBinaryString.length(), wordAsBinaryString);
-            }catch(Exception e){
-                e.getMessage();
-            }
-            bitsChecked.addAndGet(word.getNumberOfBytes() * 8);
+            this.messageAsSerialString.append(word.getWordDataAsBinaryString());
         });
     }
 

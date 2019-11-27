@@ -1,7 +1,9 @@
 package com.chanse.messaging.bitUtils;
 
 import com.chanse.messaging.Utils;
+import com.chanse.messaging.fields.InterfaceDataField;
 import com.chanse.messaging.messages.InterfaceMessage;
+import com.chanse.messaging.words.InterfaceDataWord;
 import jdk.internal.jline.internal.TestAccessible;
 import org.junit.After;
 import org.junit.Before;
@@ -95,11 +97,34 @@ public class StandardUtilsTest {
         assertEquals(test4, StandardUtils.getBinaryStringFromBigInt(new BigInteger(test4, 2), test4.length()));
     }
 
+    /**
+     * Test generate a number of random messages. Then gets the message as a byte array and tries to re-create the message
+     * from the raw data. Verifies that the binary string it started with matches the binary string it reads from bytes.
+     */
     @Test
     public void fillMessageFromData() {
         for( int i = 0; i < 100; i ++){
             InterfaceMessage randomMessage = Utils.getRandomStandardMessage(20);
-            System.out.println(randomMessage.getMessageAsSerialString());
+            if(randomMessage.getMessageAsSerialString().length() % 8 != 0)
+                fail("While Constructing a random message, found that the length was not divisible into bytes");
+
+            // Not using BigInteger here because leading 0's will be concatinated
+            String oldMessageAsString = randomMessage.getMessageAsSerialString().toString();
+            byte[] randomMessageAsBytes = StandardUtils.getByteArrayFromBinaryString(oldMessageAsString);
+
+            // Clear the message data, setting the randomMessages data back to 0's
+            StringBuffer cleanBuffer = new StringBuffer();
+            for(int s = 0; s<randomMessage.getMessageAsSerialString().length(); s++)
+                cleanBuffer.append("0");
+
+            try{
+                StandardUtils.fillMessageFromData(randomMessage, randomMessageAsBytes);
+            }
+            catch(Exception e){
+                fail("Failed while filling message from data with message "+e.getMessage());
+            }
+
+            assertEquals(randomMessage.getMessageAsSerialString(), oldMessageAsString);
         }
     }
 
@@ -107,7 +132,36 @@ public class StandardUtilsTest {
     public void fillWordFromData() {
     }
 
+
+    /**
+     * Not the best test but make 100 random words 10 bytes long. For each field in the word set a random value
+     * on the field, and insert it into that word. then verify that the word has that exact string
+     */
     @Test
     public void insertFieldIntoWord() {
+        for(int i = 0; i<100; i++) {
+            InterfaceDataWord testWord = Utils.getRandomStandardDataWord(10);
+            for(InterfaceDataField field : testWord.getDataFields()){
+
+                StringBuilder randomFieldValueBuilder = new StringBuilder();
+                for(int s = 0; s<field.getBitLength(); s++){
+                    if( Utils.myRandom.nextBoolean() )
+                        randomFieldValueBuilder.append('1');
+                    else
+                        randomFieldValueBuilder.append('0');
+                }
+
+                field.setDataBinaryString(randomFieldValueBuilder.toString());
+
+                try{
+                    StandardUtils.insertFieldIntoWord(testWord, field);
+                }catch(Exception e) {
+                    fail(e.getMessage());
+                }
+
+                String wordsFieldValue = testWord.getWordDataAsBinaryString().substring((int)field.getBitOffset(), (int)field.getBitLength());
+                assertEquals(wordsFieldValue, field.getDataBinaryString());
+            }
+        }
     }
 }

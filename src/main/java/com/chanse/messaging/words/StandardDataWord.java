@@ -38,6 +38,10 @@ public class StandardDataWord extends InterfaceDataWord{
     @Override
     public void setNumberOfBytes(int numberOfBytes) {
         this.numberOfBytes = numberOfBytes;
+        StringBuilder blankBuilder = new StringBuilder();
+        for(int i = 0; i < numberOfBytes*8; i++)
+            blankBuilder.append('0');
+        this.wordDataAsBinaryString = blankBuilder.toString();
 
         // Because we reset the internal storage, we need to update all fields that are part of the standard data word
         this.changedFields.clear();

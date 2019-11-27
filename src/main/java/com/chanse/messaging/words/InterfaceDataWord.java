@@ -38,7 +38,7 @@ public abstract class InterfaceDataWord {
     protected int numberOfBytes;
 
     // Statically hold in memory how to represent this word as bytes. This way we only recalcuate when we want to
-    protected BigInteger wordData = new BigInteger("0");
+    protected String wordDataAsBinaryString = new String("");
 
     // Flag to tell if any data on the word has changed
     protected boolean fieldDataHasChanged = false;
@@ -57,7 +57,7 @@ public abstract class InterfaceDataWord {
     protected PropertyChangeListener myFieldListener = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-            if(propertyChangeEvent.getNewValue() instanceof BigInteger){
+            if(propertyChangeEvent.getSource() instanceof InterfaceDataField){
                 fieldDataHasChanged = true;
                 if (!changedFields.contains((InterfaceDataField)propertyChangeEvent.getSource())){
                     changedFields.add((InterfaceDataField)propertyChangeEvent.getSource());

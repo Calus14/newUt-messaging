@@ -55,8 +55,21 @@ public class StandardUtils {
         for(int i = 0; i<bitCount-unpaddedString.length(); i++)
             paddingString.append("0");
         return paddingString.toString()+unpaddedString;
-
     }
+
+    /**
+     * Simple method to take a binary string and create a byte array
+     */
+    public static byte[] getByteArrayFromBinaryString(String binaryString){
+        // Because BigInteger concats any leading 0's in a string and the string represents a byte array
+        // We force it to include preceding 0's by adding a 1 to the front which will translate to [0] = 1
+        // Then just remove this extra data we added
+        byte[] byteArray = new BigInteger("1"+binaryString, 2).toByteArray();
+        byteArray = Arrays.copyOfRange(byteArray, 1, byteArray.length);
+
+        return byteArray;
+    }
+
 
     /**
      * Util method that takes a template message and attempts to fill it abstractly from the given binary data
@@ -105,9 +118,9 @@ public class StandardUtils {
             if(field.getBitOffset() + field.getBitLength() > binaryString.length())
                 errorMessage.append("Unable to read field: "+field.getName()+" because the given field over extends how much input data there was.\n");
 
-            field.setDataValue( new BigInteger(binaryString.substring((int)field.getBitOffset(), (int)field.getBitLength())) );
+            field.setDataBinaryString( binaryString.substring((int)field.getBitOffset(), (int)field.getBitLength()) );
 
-            // We want to know whats the farthest big we read. Doing this means we can ignore spare bits or fields that
+            // We want to know whats the farthest bit we read. Doing this means we can ignore spare bits or fields that
             // have yet to be marked.
             if(field.getBitLength()+field.getBitOffset() > totalBitsRead.get())
                 totalBitsRead.set((int)(field.getBitLength()+field.getBitOffset()));
@@ -131,16 +144,15 @@ public class StandardUtils {
     public static void insertFieldIntoWord(InterfaceDataWord word, InterfaceDataField field) throws BadFieldWriteException {
         // Check to see if the word not enough room to even write this field int
         if ((word.getNumberOfBytes() * 8) < field.getBitOffset() + field.getBitLength())
-            throw new BadFieldWriteException("Word with name " + word.getWordName() + " has only a data buffer of " + word.getWordData().toByteArray().length
+            throw new BadFieldWriteException("Word with name " + word.getWordName() + " has only a data buffer of " + word.getNumberOfBytes()*8
                     + "\nWe are trying to place a field named " + field.getName() + " into it who has an offset of " + field.getBitOffset() + " and length of "
                     + field.getBitLength());
 
         //TODO This method COULD be improved if done using purely primitives and binary operators. Using a String
         // Object and a big Integer Object has a cost associated with it.
 
-        String fieldDataBinaryString = field.getFieldAsBinaryString();
-        StringBuffer wordDataBinaryString = new StringBuffer(getBinaryStringFromBigInt( word.getWordData(), word.getNumberOfBytes()*8 ));
-        wordDataBinaryString.replace((int) field.getBitOffset(), (int) (field.getBitOffset() + field.getBitLength()), fieldDataBinaryString);
-        word.setWordData(new BigInteger(wordDataBinaryString.toString(), 2));
+        StringBuffer wordDataBinaryString = new StringBuffer(word.getWordDataAsBinaryString());
+        wordDataBinaryString.replace((int) field.getBitOffset(), (int) (field.getBitOffset() + field.getBitLength()), field.getDataBinaryString());
+        word.setWordDataAsBinaryString(wordDataBinaryString.toString());
     }
 }

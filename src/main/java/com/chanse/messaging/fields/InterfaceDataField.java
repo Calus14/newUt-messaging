@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,19 +30,38 @@ public abstract class InterfaceDataField {
     // Offset, how many bits into its holding container it is starting
     protected long bitOffset;
 
-    // The value that the given field holds in BINARY. This may not be the value it holds that the user will see
-    protected BigInteger dataValue = new BigInteger("0");
+    // The value the field in whatever object its binary represents
+    protected Object dataValue;
+
+    // The value of the field in binary but stored as a string
+    protected String dataBinaryString = "";
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     // The Bean that the field holds to determine if a data change event needs to be fired off to other parts of the application
     protected List<PropertyChangeListener> myDataChangeListeners = new ArrayList<>();
 
+    public void setBitLength(long bitLength){
+        this.bitLength = bitLength;
+        StringBuilder emptyBinaryStringBuilder = new StringBuilder();
+        for(int i = 0; i<bitLength; i++)
+            emptyBinaryStringBuilder.append("0");
+        this.dataBinaryString = emptyBinaryStringBuilder.toString();
+        this.updateDataValue();
+    }
+
     // Flag to decide if it needs to recalculate the message to serial string
     protected boolean dataHasChanged;
 
-    // Method to give the correct binary representation of the field as a binary String
-    public abstract String getFieldAsBinaryString();
+    /**
+     * Method to update the fields binaryString representation off of its data's object representation
+     */
+    protected abstract void updateBinaryString();
+
+    /**
+     * Method to update the data's object representation based off its binary string representation
+     */
+    protected abstract void updateDataValue();
 
     public void addFieldListener(PropertyChangeListener dataChangeListener){
         myDataChangeListeners.add(dataChangeListener);
@@ -52,14 +70,32 @@ public abstract class InterfaceDataField {
         myDataChangeListeners.remove(dataChangeListener);
     }
 
-    public void setDataValue(BigInteger data){
-        if(data.toString() == this.dataValue.toString())
+    public void setDataValue(Object dataObject) throws Exception{
+        if( !dataObject.getClass().equals(dataValue.getClass()) )
+            throw new Exception("Tried to set data with class "+dataObject.getClass()+" on field named "+name+
+                                 " which holds data with of type "+dataValue.getClass());
+
+        if( dataObject.equals(this.dataValue) )
             return;
-        BigInteger oldData = this.dataValue;
-        this.dataValue = data;
+        Object oldData = this.dataValue;
+        this.dataValue = dataObject;
+        this.updateBinaryString();
         dataHasChanged = true;
         myDataChangeListeners.stream().forEach(listener -> {
-            listener.propertyChange(new PropertyChangeEvent(this, "dataValue", oldData, data));
+            listener.propertyChange(new PropertyChangeEvent(this, "dataValue", oldData, dataObject));
+        });
+    }
+
+    public void setDataBinaryString(String dataBinaryString){
+        if( dataBinaryString.equals(this.dataBinaryString) )
+            return;
+
+        String oldBinaryString = this.dataBinaryString;
+        this.dataBinaryString = dataBinaryString;
+        this.updateDataValue();
+        dataHasChanged = true;
+        myDataChangeListeners.stream().forEach(listener -> {
+            listener.propertyChange(new PropertyChangeEvent(this, "dataBinaryString", oldBinaryString, dataBinaryString));
         });
     }
 }
