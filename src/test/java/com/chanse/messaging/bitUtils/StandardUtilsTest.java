@@ -4,7 +4,6 @@ import com.chanse.messaging.Utils;
 import com.chanse.messaging.fields.InterfaceDataField;
 import com.chanse.messaging.messages.InterfaceMessage;
 import com.chanse.messaging.words.InterfaceDataWord;
-import jdk.internal.jline.internal.TestAccessible;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,7 +103,7 @@ public class StandardUtilsTest {
     @Test
     public void fillMessageFromData() {
         for( int i = 0; i < 100; i ++){
-            InterfaceMessage randomMessage = Utils.getRandomStandardMessage(20);
+            InterfaceMessage randomMessage = Utils.getRandomStandardMessage(10);
             if(randomMessage.getMessageAsSerialString().length() % 8 != 0)
                 fail("While Constructing a random message, found that the length was not divisible into bytes");
 
@@ -116,20 +115,50 @@ public class StandardUtilsTest {
             StringBuffer cleanBuffer = new StringBuffer();
             for(int s = 0; s<randomMessage.getMessageAsSerialString().length(); s++)
                 cleanBuffer.append("0");
+            randomMessage.setMessageAsSerialString(cleanBuffer);
 
             try{
                 StandardUtils.fillMessageFromData(randomMessage, randomMessageAsBytes);
             }
             catch(Exception e){
+                e.printStackTrace();
                 fail("Failed while filling message from data with message "+e.getMessage());
             }
 
-            assertEquals(randomMessage.getMessageAsSerialString(), oldMessageAsString);
+            assertEquals(randomMessage.getMessageAsSerialString().toString(), oldMessageAsString);
         }
     }
 
+    /**
+     * Test generate a number of random message words. Then gets the message as a byte array and tries to re-create the message
+     * from the raw data. Verifies that the binary string it started with matches the binary string it reads from bytes.
+     */
     @Test
     public void fillWordFromData() {
+        for( int i = 0; i < 100; i ++){
+            InterfaceDataWord randomWord = Utils.getRandomStandardDataWord(5);
+            if(randomWord.getWordDataAsBinaryString().length() % 8 != 0)
+                fail("While Constructing a random data word, found that the length was not divisible into bytes");
+
+            // Not using BigInteger here because leading 0's will be concatinated
+            String oldWordAsString = randomWord.getWordDataAsBinaryString().toString();
+            byte[] randomWordAsBytes = StandardUtils.getByteArrayFromBinaryString(oldWordAsString);
+
+            // Clear the message data, setting the randomMessages data back to 0's
+            StringBuffer cleanBuffer = new StringBuffer();
+            for(int s = 0; s<randomWord.getWordDataAsBinaryString().length(); s++)
+                cleanBuffer.append("0");
+            randomWord.setWordDataAsBinaryString(cleanBuffer.toString());
+
+            try{
+                StandardUtils.fillWordFromData(randomWord, randomWordAsBytes);
+            }
+            catch(Exception e){
+                fail("Failed while filling message from data with message "+e.getMessage());
+            }
+
+            assertEquals(randomWord.getWordDataAsBinaryString(), oldWordAsString);
+        }
     }
 
 
@@ -141,8 +170,8 @@ public class StandardUtilsTest {
     public void insertFieldIntoWord() {
         for(int i = 0; i<100; i++) {
             InterfaceDataWord testWord = Utils.getRandomStandardDataWord(10);
-            for(InterfaceDataField field : testWord.getDataFields()){
 
+            for(InterfaceDataField field : testWord.getDataFields()){
                 StringBuilder randomFieldValueBuilder = new StringBuilder();
                 for(int s = 0; s<field.getBitLength(); s++){
                     if( Utils.myRandom.nextBoolean() )
@@ -159,7 +188,7 @@ public class StandardUtilsTest {
                     fail(e.getMessage());
                 }
 
-                String wordsFieldValue = testWord.getWordDataAsBinaryString().substring((int)field.getBitOffset(), (int)field.getBitLength());
+                String wordsFieldValue = testWord.getWordDataAsBinaryString().substring( (int)field.getBitOffset(), (int)(field.getBitLength() +field.getBitOffset()) );
                 assertEquals(wordsFieldValue, field.getDataBinaryString());
             }
         }

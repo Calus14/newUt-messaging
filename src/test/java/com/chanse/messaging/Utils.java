@@ -46,12 +46,12 @@ public class Utils {
 
         randomWord.setNumberOfBytes(bytes);
         // TODO generate random fields by picking a random value from 1-32 for a field and then adding it and doing this repeatedly until we have
-        // all the bytes filled out. Also put a 1/4 chance that there are no fields in this word. (spare fields).
+        // all the bytes filled out. Also put a 1/6 chance that there are no fields in this word. (spare fields).
         int bitsLeft = bytes*8;
         int bitOffset = 0;
         while(bitsLeft > 0){
-            // 1/4 chance that there is no field next (spare fields)
-            boolean isSpareField = myRandom.nextInt()%4==0;
+            // 1/6 chance that there is no field next (spare fields)
+            boolean isSpareField = myRandom.nextInt()%6==0;
             int fieldBits = Math.abs((myRandom.nextInt() % 32))+1;
             fieldBits = fieldBits > bitsLeft ? bitsLeft : fieldBits;
 

@@ -24,10 +24,10 @@ public class StandardMessage extends InterfaceMessage {
         // Atomic must be used because there must be a threadsafe operation for stream lambdas
         AtomicInteger bitsChecked = new AtomicInteger();
         dataWords.stream().forEach( word -> {
-            if(word.isFieldDataHasChanged()){
-                String wordAsBinaryString = word.getWordDataAsBinaryString();
-                this.messageAsSerialString.replace(bitsChecked.get(), wordAsBinaryString.length(), wordAsBinaryString);
-            }
+
+            String wordAsBinaryString = word.getWordDataAsBinaryString();
+            this.messageAsSerialString.replace(bitsChecked.get(), bitsChecked.get() + wordAsBinaryString.length(), wordAsBinaryString);
+
             bitsChecked.addAndGet(word.getNumberOfBytes() * 8);
         });
     }

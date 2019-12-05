@@ -32,7 +32,9 @@ public class StandardDataWord extends InterfaceDataWord{
                 exceptionBuilder.append (bfwe.getMessage() );
             }
         } );
-        if(exceptionBuilder.length() != 0) throw new BadFieldWriteException(exceptionBuilder.toString());
+        if(exceptionBuilder.length() != 0) {
+            throw new BadFieldWriteException(exceptionBuilder.toString());
+        }
     }
 
     @Override

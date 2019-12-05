@@ -40,8 +40,7 @@ public class StandardUtils {
             throw new BadFieldWriteException("Unable to peek at bits on the given inputData stream because the offset:"+offset+
                     " and length:" +length+ " overflows the input data with "+inputData.length+" bytes.");
 
-        String inputAsBinaryString = getBinaryStringFromBigInt(new BigInteger(inputData), inputData.length*8);
-        String newString = inputAsBinaryString.substring(offset, offset+length);
+        String inputAsBinaryString = getBinaryStringFromBigInt(new BigInteger(1, inputData), inputData.length*8);
         return new BigInteger(inputAsBinaryString.substring(offset, offset+length), 2);
     }
 
@@ -92,6 +91,9 @@ public class StandardUtils {
                 errorMessage.append(e.getMessage()+"\n");
             }
         }
+
+        message.recalculateMessageAsBinaryString();
+
         if(!errorMessage.toString().isEmpty())
             throw new BaseMessagingException("Failed to fill message with name: "+message.getMessageName()+". Here are the following errors:\n"+
                     errorMessage.toString());
@@ -107,31 +109,28 @@ public class StandardUtils {
      */
     public static int fillWordFromData(InterfaceDataWord word, byte[] inputData) throws BaseMessagingException {
         //Allowing us to use lambdas
-        AtomicInteger totalBitsRead = new AtomicInteger();
         StringBuffer errorMessage = new StringBuffer();
 
         // We are avoiding using the peek method so that we dont have to constantly create a new binary string
-        String binaryString = new BigInteger(inputData).toString(2);
+        String binaryString = getBinaryStringFromBigInt(new BigInteger(1, inputData), inputData.length*8);
 
         word.getDataFields().stream().forEach( field -> {
 
             if(field.getBitOffset() + field.getBitLength() > binaryString.length())
                 errorMessage.append("Unable to read field: "+field.getName()+" because the given field over extends how much input data there was.\n");
 
-            field.setDataBinaryString( binaryString.substring((int)field.getBitOffset(), (int)field.getBitLength()) );
+            field.setDataBinaryString( binaryString.substring((int)field.getBitOffset(), (int)(field.getBitLength()+field.getBitOffset())) );
 
-            // We want to know whats the farthest bit we read. Doing this means we can ignore spare bits or fields that
-            // have yet to be marked.
-            if(field.getBitLength()+field.getBitOffset() > totalBitsRead.get())
-                totalBitsRead.set((int)(field.getBitLength()+field.getBitOffset()));
+            if(field.getDataBinaryString().startsWith("-"))
+                System.out.println();
         });
         if(!errorMessage.toString().isEmpty())
             throw new BaseMessagingException("Failed to read message word with name: "+word.getWordName()+" Here are the errors:\n"
                     +errorMessage.toString());
 
-        // There may be spare bits we havent read yet at the end. but words are on the byte level so round up to the nearest byte
-        int totalBytesRead = totalBitsRead.get() % 8 == 0? totalBitsRead.get() / 8 : totalBitsRead.get() / 8 + 1;
-        return totalBytesRead;
+        word.updateChangedFields();
+
+        return word.getNumberOfBytes();
     }
 
     /**
@@ -150,6 +149,9 @@ public class StandardUtils {
 
         //TODO This method COULD be improved if done using purely primitives and binary operators. Using a String
         // Object and a big Integer Object has a cost associated with it.
+
+        if(field.getDataBinaryString().startsWith("-"))
+            System.out.println();
 
         StringBuffer wordDataBinaryString = new StringBuffer(word.getWordDataAsBinaryString());
         wordDataBinaryString.replace((int) field.getBitOffset(), (int) (field.getBitOffset() + field.getBitLength()), field.getDataBinaryString());
