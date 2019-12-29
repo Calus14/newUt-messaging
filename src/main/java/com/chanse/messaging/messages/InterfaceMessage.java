@@ -24,6 +24,9 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class InterfaceMessage{
 
+    @Setter(AccessLevel.NONE)
+    protected String myClassName = this.getClass().getName();
+
     // Each message will hold a static reference to memory so that it will only calculate the given binary string
     // if a field has been updated on it.
     protected StringBuffer messageAsSerialString = new StringBuffer();
@@ -70,15 +73,6 @@ public abstract class InterfaceMessage{
             }
         }
     };
-
-    public static class InterfaceMessageSerializer implements JsonSerializer<InterfaceMessage>{
-        @Override
-        public JsonElement serialize(InterfaceMessage src, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject object = (JsonObject)(SaveLoadUtils.defaultGson.toJsonTree(src));
-            object.addProperty("myClass", src.getClass().getName());
-            return object;
-        }
-    }
 
     public static class InterfaceMessageDeserializer implements JsonDeserializer<InterfaceMessage>{
         @Override

@@ -37,6 +37,9 @@ import java.util.Set;
 @NoArgsConstructor
 public abstract class InterfaceDataWord {
 
+    @Setter(AccessLevel.NONE)
+    protected String myClassName = this.getClass().getName();
+
     // All of the words possible fields are stored here, it is up to the message to figure out how to go about handling
     // Which word is in which order. This should be done from the message configuration Service
     protected List<InterfaceDataField> dataFields = new ArrayList<>();
@@ -93,13 +96,4 @@ public abstract class InterfaceDataWord {
     // Method that should run whenever trying to write a word that has had data on it change
     // Being included on the Data object because we want to have the data knowledgeable of itself as bytes
     public abstract void updateChangedFields() throws BadFieldWriteException;
-
-    public static class InterfaceDataWordSerializer implements JsonSerializer<InterfaceDataWord> {
-        @Override
-        public JsonElement serialize(InterfaceDataWord src, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject object = (JsonObject)(SaveLoadUtils.defaultGson.toJsonTree(src));
-            object.addProperty("myClass", src.getClass().getName());
-            return object;
-        }
-    }
 }

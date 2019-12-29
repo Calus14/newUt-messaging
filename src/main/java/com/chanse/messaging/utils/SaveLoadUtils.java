@@ -35,16 +35,7 @@ public class SaveLoadUtils {
 
     private SaveLoadUtils(){
         myGson = new GsonBuilder()
-                // SERIALIZERS
-                // Messages
-                .registerTypeAdapter(StandardMessage.class, new InterfaceMessage.InterfaceMessageSerializer())
-                // Words
-                .registerTypeAdapter(StandardDataWord.class, new InterfaceDataWord.InterfaceDataWordSerializer())
-                // Fields
-                .registerTypeAdapter(EnumDataField.class, new InterfaceDataField.InterfaceDataFieldSerializer())
-                .registerTypeAdapter(IntegerDataField.class, new InterfaceDataField.InterfaceDataFieldSerializer())
-                .registerTypeAdapter(StaticDataField.class, new InterfaceDataField.InterfaceDataFieldSerializer())
-                // DSERIALIZERS
+                // DESERIALIZERS
                 // Messages
                 .registerTypeAdapter(InterfaceMessage.class, new InterfaceMessage.InterfaceMessageDeserializer())
                 // Words

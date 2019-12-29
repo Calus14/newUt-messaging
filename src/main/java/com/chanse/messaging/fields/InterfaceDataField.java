@@ -30,6 +30,9 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class InterfaceDataField {
 
+    @Setter(AccessLevel.NONE)
+    protected String myClassName = this.getClass().getName();
+
     // Name of the field itself. Must be unique to each message
     protected String name = new String("");
     // Number of bits this field consumes. NOTE this may not exist continguously in memory for things like combined fields
@@ -104,14 +107,5 @@ public abstract class InterfaceDataField {
         myDataChangeListeners.stream().forEach(listener -> {
             listener.propertyChange(new PropertyChangeEvent(this, "dataBinaryString", oldBinaryString, dataBinaryString));
         });
-    }
-
-    public static class InterfaceDataFieldSerializer implements JsonSerializer<InterfaceDataField> {
-        @Override
-        public JsonElement serialize(InterfaceDataField src, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject object = (JsonObject)(SaveLoadUtils.defaultGson.toJsonTree(src));
-            object.addProperty("myClass", src.getClass().getName());
-            return object;
-        }
     }
 }
