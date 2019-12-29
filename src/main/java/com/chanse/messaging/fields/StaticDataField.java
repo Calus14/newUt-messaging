@@ -1,12 +1,10 @@
 package com.chanse.messaging.fields;
 
-import com.chanse.messaging.bitUtils.StandardUtils;
+import com.chanse.messaging.utils.BitUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.math.BigInteger;
 
 /**
@@ -33,7 +31,7 @@ public class StaticDataField extends InterfaceDataField {
             this.dataBinaryString = "";
         }
         else {
-            this.dataBinaryString = StandardUtils.getBinaryStringFromBigInt((BigInteger) dataValue, (int) bitLength);
+            this.dataBinaryString = BitUtils.getBinaryStringFromBigInt((BigInteger) dataValue, (int) bitLength);
         }
     }
 

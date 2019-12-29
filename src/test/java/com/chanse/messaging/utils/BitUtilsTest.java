@@ -1,4 +1,4 @@
-package com.chanse.messaging.bitUtils;
+package com.chanse.messaging.utils;
 
 import com.chanse.messaging.Utils;
 import com.chanse.messaging.fields.InterfaceDataField;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Generated Test Class for Standard Bit Utils. Add your own tests with each additional method add
  */
-public class StandardUtilsTest {
+public class BitUtilsTest {
 
     // 00111100 11111111 10000000 00000000 00000001 10000001
     static final byte[] testInputStream1 = new byte[]{60, -1, -128, 0, 1, -127};
@@ -42,14 +42,14 @@ public class StandardUtilsTest {
     public void peekAtBits() {
         // TEST 1
         try {
-            BigInteger expected1 = StandardUtils.peekAtBits(16, 1, testInputStream1);
+            BigInteger expected1 = BitUtils.peekAtBits(16, 1, testInputStream1);
             assertEquals(expected1.intValue(), 1);
-            BigInteger expected0 = StandardUtils.peekAtBits(1, 1, testInputStream1);
+            BigInteger expected0 = BitUtils.peekAtBits(1, 1, testInputStream1);
             assertEquals(expected0.intValue(), 0);
 
-            expected1 = StandardUtils.peekAtBits(47, 1, testInputStream1);
+            expected1 = BitUtils.peekAtBits(47, 1, testInputStream1);
             assertEquals(expected1.intValue(), 1);
-            expected0 = StandardUtils.peekAtBits(44, 1, testInputStream1);
+            expected0 = BitUtils.peekAtBits(44, 1, testInputStream1);
             assertEquals(expected0.intValue(), 0);
         }
         catch(Exception e){
@@ -58,11 +58,11 @@ public class StandardUtilsTest {
 
         // TEST 2
         try {
-            BigInteger expected15 = StandardUtils.peekAtBits(0, 6, testInputStream1);
+            BigInteger expected15 = BitUtils.peekAtBits(0, 6, testInputStream1);
             assertEquals(expected15.intValue(), 15);
-            BigInteger expected30 = StandardUtils.peekAtBits(0, 7, testInputStream1);
+            BigInteger expected30 = BitUtils.peekAtBits(0, 7, testInputStream1);
             assertEquals(expected30.intValue(), 30);
-            BigInteger expected499696 = StandardUtils.peekAtBits(0, 21, testInputStream1);
+            BigInteger expected499696 = BitUtils.peekAtBits(0, 21, testInputStream1);
             assertEquals(expected499696.intValue(), 499696);
         }
         catch(Exception e){
@@ -71,11 +71,11 @@ public class StandardUtilsTest {
 
         // TEST 3
         try {
-            BigInteger expected6 = StandardUtils.peekAtBits(39, 3, testInputStream1);
+            BigInteger expected6 = BitUtils.peekAtBits(39, 3, testInputStream1);
             assertEquals(expected6.intValue(), 6);
-            BigInteger expected51 = StandardUtils.peekAtBits(4, 6, testInputStream1);
+            BigInteger expected51 = BitUtils.peekAtBits(4, 6, testInputStream1);
             assertEquals(expected51.intValue(), 51);
-            BigInteger expected58720257 = StandardUtils.peekAtBits(14, 26, testInputStream1);
+            BigInteger expected58720257 = BitUtils.peekAtBits(14, 26, testInputStream1);
             assertEquals(expected58720257.intValue(), 58720257);
         }
         catch(Exception e){
@@ -90,10 +90,10 @@ public class StandardUtilsTest {
         String test2 = "00000101001";
         String test3 = "0";
         String test4 = "0000000000000000000000000000000000000000000000000";
-        assertEquals(test1, StandardUtils.getBinaryStringFromBigInt(new BigInteger(test1,2 ), test1.length()));
-        assertEquals(test2, StandardUtils.getBinaryStringFromBigInt(new BigInteger(test2,2), test2.length()));
-        assertEquals(test3, StandardUtils.getBinaryStringFromBigInt(new BigInteger(test3, 2), test3.length()));
-        assertEquals(test4, StandardUtils.getBinaryStringFromBigInt(new BigInteger(test4, 2), test4.length()));
+        assertEquals(test1, BitUtils.getBinaryStringFromBigInt(new BigInteger(test1,2 ), test1.length()));
+        assertEquals(test2, BitUtils.getBinaryStringFromBigInt(new BigInteger(test2,2), test2.length()));
+        assertEquals(test3, BitUtils.getBinaryStringFromBigInt(new BigInteger(test3, 2), test3.length()));
+        assertEquals(test4, BitUtils.getBinaryStringFromBigInt(new BigInteger(test4, 2), test4.length()));
     }
 
     /**
@@ -109,7 +109,7 @@ public class StandardUtilsTest {
 
             // Not using BigInteger here because leading 0's will be concatinated
             String oldMessageAsString = randomMessage.getMessageAsSerialString().toString();
-            byte[] randomMessageAsBytes = StandardUtils.getByteArrayFromBinaryString(oldMessageAsString);
+            byte[] randomMessageAsBytes = BitUtils.getByteArrayFromBinaryString(oldMessageAsString);
 
             // Clear the message data, setting the randomMessages data back to 0's
             StringBuffer cleanBuffer = new StringBuffer();
@@ -118,7 +118,7 @@ public class StandardUtilsTest {
             randomMessage.setMessageAsSerialString(cleanBuffer);
 
             try{
-                StandardUtils.fillMessageFromData(randomMessage, randomMessageAsBytes);
+                BitUtils.fillMessageFromData(randomMessage, randomMessageAsBytes);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -142,7 +142,7 @@ public class StandardUtilsTest {
 
             // Not using BigInteger here because leading 0's will be concatinated
             String oldWordAsString = randomWord.getWordDataAsBinaryString().toString();
-            byte[] randomWordAsBytes = StandardUtils.getByteArrayFromBinaryString(oldWordAsString);
+            byte[] randomWordAsBytes = BitUtils.getByteArrayFromBinaryString(oldWordAsString);
 
             // Clear the message data, setting the randomMessages data back to 0's
             StringBuffer cleanBuffer = new StringBuffer();
@@ -151,7 +151,7 @@ public class StandardUtilsTest {
             randomWord.setWordDataAsBinaryString(cleanBuffer.toString());
 
             try{
-                StandardUtils.fillWordFromData(randomWord, randomWordAsBytes);
+                BitUtils.fillWordFromData(randomWord, randomWordAsBytes);
             }
             catch(Exception e){
                 fail("Failed while filling message from data with message "+e.getMessage());
@@ -183,7 +183,7 @@ public class StandardUtilsTest {
                 field.setDataBinaryString(randomFieldValueBuilder.toString());
 
                 try{
-                    StandardUtils.insertFieldIntoWord(testWord, field);
+                    BitUtils.insertFieldIntoWord(testWord, field);
                 }catch(Exception e) {
                     fail(e.getMessage());
                 }
@@ -193,4 +193,5 @@ public class StandardUtilsTest {
             }
         }
     }
+
 }

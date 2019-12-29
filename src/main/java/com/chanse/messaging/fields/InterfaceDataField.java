@@ -1,9 +1,16 @@
 package com.chanse.messaging.fields;
 
+import com.chanse.messaging.messages.InterfaceMessage;
+import com.chanse.messaging.utils.SaveLoadUtils;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import lombok.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +41,12 @@ public abstract class InterfaceDataField {
     protected Object dataValue;
 
     // The value of the field in binary but stored as a string
-    protected String dataBinaryString = "";
+    protected transient String dataBinaryString = "";
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     // The Bean that the field holds to determine if a data change event needs to be fired off to other parts of the application
-    protected List<PropertyChangeListener> myDataChangeListeners = new ArrayList<>();
+    protected transient List<PropertyChangeListener> myDataChangeListeners = new ArrayList<>();
 
     public void setBitLength(long bitLength){
         this.bitLength = bitLength;
@@ -51,7 +58,7 @@ public abstract class InterfaceDataField {
     }
 
     // Flag to decide if it needs to recalculate the message to serial string
-    protected boolean dataHasChanged;
+    protected transient boolean dataHasChanged;
 
     /**
      * Method to update the fields binaryString representation off of its data's object representation
@@ -97,5 +104,14 @@ public abstract class InterfaceDataField {
         myDataChangeListeners.stream().forEach(listener -> {
             listener.propertyChange(new PropertyChangeEvent(this, "dataBinaryString", oldBinaryString, dataBinaryString));
         });
+    }
+
+    public static class InterfaceDataFieldSerializer implements JsonSerializer<InterfaceDataField> {
+        @Override
+        public JsonElement serialize(InterfaceDataField src, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject object = (JsonObject)(SaveLoadUtils.defaultGson.toJsonTree(src));
+            object.addProperty("myClass", src.getClass().getName());
+            return object;
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.chanse.messaging.msginterface;
 
-import com.chanse.messaging.bitUtils.StandardUtils;
-import com.chanse.messaging.exceptions.BaseMessagingException;
+import com.chanse.messaging.utils.BitUtils;
 import com.chanse.messaging.exceptions.DuplicateMessageIdException;
 import com.chanse.messaging.exceptions.IdOverlapException;
 import com.chanse.messaging.messages.InterfaceMessage;
@@ -9,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -106,7 +104,7 @@ public class StaticIdDecoder extends InterfaceDecoder{
                     // Find what message to get
                     List<BigInteger> messageUniqueId = new ArrayList<>();
                     for(IdPeekInfo id : idPeekInfoList)
-                        messageUniqueId.add(StandardUtils.peekAtBits(id.bitOffset, id.bitLength, dataToDecode));
+                        messageUniqueId.add(BitUtils.peekAtBits(id.bitOffset, id.bitLength, dataToDecode));
 
                     if(!idToMessageMap.containsKey(messageUniqueId)) {
                         errorOccurred = true;
@@ -115,7 +113,7 @@ public class StaticIdDecoder extends InterfaceDecoder{
                     }
 
                     InterfaceMessage message = idToMessageMap.get(messageUniqueId);
-                    StandardUtils.fillMessageFromData(message, dataToDecode);
+                    BitUtils.fillMessageFromData(message, dataToDecode);
                     decodedMessages.add(message);
             }
         }
@@ -137,7 +135,7 @@ public class StaticIdDecoder extends InterfaceDecoder{
                 // Find what message to get
                 List<BigInteger> messageUniqueId = new ArrayList<>();
                 for(IdPeekInfo id : idPeekInfoList)
-                    messageUniqueId.add(StandardUtils.peekAtBits(id.bitOffset, id.bitLength, dataToDecode));
+                    messageUniqueId.add(BitUtils.peekAtBits(id.bitOffset, id.bitLength, dataToDecode));
 
                 if(!idToMessageMap.containsKey(messageUniqueId)) {
                     errorOccurred = true;
@@ -146,7 +144,7 @@ public class StaticIdDecoder extends InterfaceDecoder{
                 }
 
                 InterfaceMessage message = idToMessageMap.get(messageUniqueId);
-                StandardUtils.fillMessageFromData(message, dataToDecode);
+                BitUtils.fillMessageFromData(message, dataToDecode);
                 decodedMessages.add(message);
             }
         }

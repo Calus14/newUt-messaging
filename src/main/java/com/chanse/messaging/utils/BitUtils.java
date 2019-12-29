@@ -1,4 +1,4 @@
-package com.chanse.messaging.bitUtils;
+package com.chanse.messaging.utils;
 
 import com.chanse.messaging.exceptions.BadFieldWriteException;
 import com.chanse.messaging.exceptions.BaseMessagingException;
@@ -8,13 +8,12 @@ import com.chanse.messaging.words.InterfaceDataWord;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Standard Utils in the messaging service will be doing operations like writing a field into a given bit arrary,
  * validating changing complementness of a field, endianness, double point precission and larger than 64 bit handling
  */
-public class StandardUtils {
+public class BitUtils {
 
     // Convience because i can
     final int oneBits = 0x1;

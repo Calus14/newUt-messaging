@@ -1,6 +1,5 @@
 package com.chanse.messaging.messages;
 
-import com.chanse.messaging.bitUtils.StandardUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

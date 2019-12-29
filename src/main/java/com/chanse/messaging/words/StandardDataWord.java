@@ -1,12 +1,11 @@
 package com.chanse.messaging.words;
 
 
-import com.chanse.messaging.bitUtils.StandardUtils;
+import com.chanse.messaging.utils.BitUtils;
 import com.chanse.messaging.exceptions.BadFieldWriteException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Standard DataWord Class that most interfaces will use with exception in a few cases.
@@ -25,7 +24,7 @@ public class StandardDataWord extends InterfaceDataWord{
 
         this.changedFields.stream().forEach( field -> {
             try {
-                StandardUtils.insertFieldIntoWord(this, field);
+                BitUtils.insertFieldIntoWord(this, field);
                 field.setDataHasChanged( false );
             }
             catch( BadFieldWriteException bfwe){

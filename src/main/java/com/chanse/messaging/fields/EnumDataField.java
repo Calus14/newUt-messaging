@@ -1,13 +1,10 @@
 package com.chanse.messaging.fields;
 
-import com.chanse.messaging.bitUtils.StandardUtils;
+import com.chanse.messaging.utils.BitUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class EnumDataField extends InterfaceDataField {
     @Override
     protected void updateBinaryString() {
         BigInteger bigIntEnumRepresentation = BigInteger.valueOf( ((FieldSpecificEnum)dataValue).enumValue.intValue() );
-        this.dataBinaryString = StandardUtils.getBinaryStringFromBigInt(bigIntEnumRepresentation, (int) bitLength);
+        this.dataBinaryString = BitUtils.getBinaryStringFromBigInt(bigIntEnumRepresentation, (int) bitLength);
     }
 
     @Override
