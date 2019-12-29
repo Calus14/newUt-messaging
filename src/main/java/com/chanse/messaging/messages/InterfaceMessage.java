@@ -40,6 +40,26 @@ public abstract class InterfaceMessage{
     // The Individual Data Words because were cool like that
     protected List<InterfaceDataWord> dataWords = new ArrayList<>();
 
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof InterfaceMessage == false)
+            return false;
+        InterfaceMessage otherMessage = (InterfaceMessage)other;
+        if( !this.messageName.equals(otherMessage.messageName) ||
+            !this.messageAsSerialString.equals(otherMessage.messageAsSerialString))
+            return false;
+
+        if( dataWords.size() != otherMessage.dataWords.size() )
+            return false;
+
+        for( int wordCount = 0; wordCount < dataWords.size(); wordCount++ ){
+            if( !dataWords.get(wordCount).equals(otherMessage.dataWords.get(wordCount)) )
+                return false;
+        }
+
+        return true;
+    }
+
     /**
      * Method each message type will need to implement for how to find out its binary string. Different message
      * will do this differently... ie a protobuffer vs something that is simulating interlaced video.... SPOOOOKY
@@ -77,8 +97,14 @@ public abstract class InterfaceMessage{
     public static class InterfaceMessageDeserializer implements JsonDeserializer<InterfaceMessage>{
         @Override
         public InterfaceMessage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            System.out.println("Here");
-            return SaveLoadUtils.defaultGson.fromJson(json, typeOfT);
+            try {
+                Class messageType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
+                return (InterfaceMessage)SaveLoadUtils.myGson.fromJson(json, messageType);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 }

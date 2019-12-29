@@ -5,10 +5,7 @@ import com.chanse.messaging.fields.InterfaceDataField;
 import com.chanse.messaging.fields.StaticDataField;
 import com.chanse.messaging.messages.InterfaceMessage;
 import com.chanse.messaging.utils.SaveLoadUtils;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
@@ -48,7 +45,7 @@ public abstract class InterfaceDataWord {
     protected int numberOfBytes;
 
     // Statically hold in memory how to represent this word as bytes. This way we only recalcuate when we want to
-    protected transient String wordDataAsBinaryString = new String("");
+    protected String wordDataAsBinaryString = new String("");
 
     // Flag to tell if any data on the word has changed
     protected transient boolean fieldDataHasChanged = false;
@@ -62,6 +59,26 @@ public abstract class InterfaceDataWord {
 
     // Whenever a field changes we should know bout it so we can update just the one and be more effecient
     protected transient Set<InterfaceDataField> changedFields = new HashSet<>();
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof InterfaceDataWord == false)
+            return false;
+        InterfaceDataWord otherWord = (InterfaceDataWord) other;
+        if( !this.wordName.equals(otherWord.wordName) ||
+                !this.wordDataAsBinaryString.equals(otherWord.wordDataAsBinaryString))
+            return false;
+
+        if( dataFields.size() != otherWord.dataFields.size() )
+            return false;
+
+        for( int fieldCount = 0; fieldCount < dataFields.size(); fieldCount++ ){
+            if( !dataFields.get(fieldCount).equals(otherWord.dataFields.get(fieldCount)) )
+                return false;
+        }
+
+        return true;
+    }
 
     @Setter(AccessLevel.NONE)
     protected PropertyChangeListener myFieldListener = new PropertyChangeListener() {
@@ -96,4 +113,18 @@ public abstract class InterfaceDataWord {
     // Method that should run whenever trying to write a word that has had data on it change
     // Being included on the Data object because we want to have the data knowledgeable of itself as bytes
     public abstract void updateChangedFields() throws BadFieldWriteException;
+
+    public static class InterfaceDataWordDeserializer implements JsonDeserializer<InterfaceDataWord> {
+        @Override
+        public InterfaceDataWord deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            try {
+                Class wordType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
+                return (InterfaceDataWord)SaveLoadUtils.myGson.fromJson(json, wordType);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
 }

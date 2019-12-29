@@ -29,7 +29,7 @@ public class SaveLoadUtils {
     public static final Gson defaultGson = new Gson();
 
     // The Custom Gson mapper that will be used by this actual service
-    static Gson myGson;
+    public static Gson myGson;
 
     public static SaveLoadUtils Instance = new SaveLoadUtils();
 
@@ -39,8 +39,9 @@ public class SaveLoadUtils {
                 // Messages
                 .registerTypeAdapter(InterfaceMessage.class, new InterfaceMessage.InterfaceMessageDeserializer())
                 // Words
-
+                .registerTypeAdapter(InterfaceDataWord.class, new InterfaceDataWord.InterfaceDataWordDeserializer())
                 //Fields
+                .registerTypeAdapter(InterfaceDataField.class, new InterfaceDataField.InterfaceDataFieldDeserializer())
                 .setPrettyPrinting()
                 .create();
     }

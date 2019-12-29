@@ -2,10 +2,7 @@ package com.chanse.messaging.fields;
 
 import com.chanse.messaging.messages.InterfaceMessage;
 import com.chanse.messaging.utils.SaveLoadUtils;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import lombok.*;
 
 import java.beans.PropertyChangeEvent;
@@ -44,7 +41,7 @@ public abstract class InterfaceDataField {
     protected Object dataValue;
 
     // The value of the field in binary but stored as a string
-    protected transient String dataBinaryString = "";
+    protected String dataBinaryString = "";
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -107,5 +104,19 @@ public abstract class InterfaceDataField {
         myDataChangeListeners.stream().forEach(listener -> {
             listener.propertyChange(new PropertyChangeEvent(this, "dataBinaryString", oldBinaryString, dataBinaryString));
         });
+    }
+
+    public static class InterfaceDataFieldDeserializer implements JsonDeserializer<InterfaceDataField> {
+        @Override
+        public InterfaceDataField deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            try {
+                Class fieldType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
+                return (InterfaceDataField)SaveLoadUtils.myGson.fromJson(json, fieldType);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 }
