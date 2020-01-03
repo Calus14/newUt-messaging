@@ -1,13 +1,15 @@
 package com.chanse.messaging.msginterface;
 
+import com.chanse.messaging.exceptions.BaseMessagingException;
 import com.chanse.messaging.utils.BitUtils;
 import com.chanse.messaging.exceptions.DuplicateMessageIdException;
 import com.chanse.messaging.exceptions.IdOverlapException;
 import com.chanse.messaging.messages.InterfaceMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -23,8 +25,11 @@ import java.util.*;
  *
  * Static ID Decoders do not require messages to be fixed length.
  */
-@Configuration
 public class StaticIdDecoder extends InterfaceDecoder{
+
+    public StaticIdDecoder(InputStream input){
+        super(input);
+    }
 
     /**
      * Internal helper class that lets us know how to peak at an input to stream to find an ID.
@@ -43,10 +48,9 @@ public class StaticIdDecoder extends InterfaceDecoder{
         public int bitLength;
     }
 
-    protected static List<IdPeekInfo> idPeekInfoList = new ArrayList<>();
-    protected static Map<List<BigInteger>, InterfaceMessage> idToMessageMap = new HashMap<>();
+    protected List<IdPeekInfo> idPeekInfoList = new ArrayList<>();
+    protected Map<List<BigInteger>, InterfaceMessage> idToMessageMap = new HashMap<>();
 
-    // TODO Remove or wrap these methods by the configuration service so that this can be loaded via json.
     public void addIdPeekInfo(int offset, int length) throws IdOverlapException {
         IdPeekInfo newPeekInfo = new IdPeekInfo(offset, length);
         idPeekInfoList.add(newPeekInfo);
@@ -95,43 +99,12 @@ public class StaticIdDecoder extends InterfaceDecoder{
     }
 
     @Override
-    public List<InterfaceMessage> decodeMessages() {
+    public List<InterfaceMessage> decodeMessages() throws IOException, BaseMessagingException {
         List<InterfaceMessage> decodedMessages = new ArrayList<InterfaceMessage>();
-        try {
-            byte[] dataToDecode = new byte[this.inputStream.available()];
-            this.inputStream.read(dataToDecode);
-            while(dataToDecode.length > 0){
-                    // Find what message to get
-                    List<BigInteger> messageUniqueId = new ArrayList<>();
-                    for(IdPeekInfo id : idPeekInfoList)
-                        messageUniqueId.add(BitUtils.peekAtBits(id.bitOffset, id.bitLength, dataToDecode));
 
-                    if(!idToMessageMap.containsKey(messageUniqueId)) {
-                        errorOccurred = true;
-                        errorLog.append("Unable to find any message associated with the following ids:"+messageUniqueId+"\n Aborting reading any more messages with this call");
-                        break;
-                    }
-
-                    InterfaceMessage message = idToMessageMap.get(messageUniqueId);
-                    BitUtils.fillMessageFromData(message, dataToDecode);
-                    decodedMessages.add(message);
-            }
-        }
-        catch(Exception e){
-            // TODO throw an error via observer paradigm
-            System.out.println(e.getMessage());
-        }
-
-        return decodedMessages;
-    }
-
-    @Override
-    public List<InterfaceMessage> decodeMessages(int maxMessages) {
-        List<InterfaceMessage> decodedMessages = new ArrayList<InterfaceMessage>();
-        try {
-            byte[] dataToDecode = new byte[this.inputStream.available()];
-            this.inputStream.read(dataToDecode);
-            while(dataToDecode.length > 0 && decodedMessages.size() < maxMessages){
+        byte[] dataToDecode = new byte[this.inputStream.available()];
+        this.inputStream.read(dataToDecode);
+        while(dataToDecode.length > 0){
                 // Find what message to get
                 List<BigInteger> messageUniqueId = new ArrayList<>();
                 for(IdPeekInfo id : idPeekInfoList)
@@ -146,11 +119,32 @@ public class StaticIdDecoder extends InterfaceDecoder{
                 InterfaceMessage message = idToMessageMap.get(messageUniqueId);
                 BitUtils.fillMessageFromData(message, dataToDecode);
                 decodedMessages.add(message);
-            }
         }
-        catch(Exception e){
-            // TODO throw an error via observer paradigm
-            System.out.println(e.getMessage());
+
+        return decodedMessages;
+    }
+
+    @Override
+    public List<InterfaceMessage> decodeMessages(int maxMessages)  throws IOException, BaseMessagingException {
+        List<InterfaceMessage> decodedMessages = new ArrayList<InterfaceMessage>();
+
+        byte[] dataToDecode = new byte[this.inputStream.available()];
+        this.inputStream.read(dataToDecode);
+        while(dataToDecode.length > 0 && decodedMessages.size() < maxMessages){
+            // Find what message to get
+            List<BigInteger> messageUniqueId = new ArrayList<>();
+            for(IdPeekInfo id : idPeekInfoList)
+                messageUniqueId.add(BitUtils.peekAtBits(id.bitOffset, id.bitLength, dataToDecode));
+
+            if(!idToMessageMap.containsKey(messageUniqueId)) {
+                errorOccurred = true;
+                errorLog.append("Unable to find any message associated with the following ids:"+messageUniqueId+"\n Aborting reading any more messages with this call");
+                break;
+            }
+
+            InterfaceMessage message = idToMessageMap.get(messageUniqueId);
+            BitUtils.fillMessageFromData(message, dataToDecode);
+            decodedMessages.add(message);
         }
 
         return decodedMessages;

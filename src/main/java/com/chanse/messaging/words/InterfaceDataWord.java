@@ -7,8 +7,6 @@ import com.chanse.messaging.messages.InterfaceMessage;
 import com.chanse.messaging.utils.SaveLoadUtils;
 import com.google.gson.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.stereotype.Service;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

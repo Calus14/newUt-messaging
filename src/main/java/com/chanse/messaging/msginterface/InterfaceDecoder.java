@@ -1,5 +1,6 @@
 package com.chanse.messaging.msginterface;
 
+import com.chanse.messaging.exceptions.BaseMessagingException;
 import com.chanse.messaging.messages.InterfaceMessage;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,6 @@ import java.util.List;
  * - String Message Decoder (A String in the first bytes of the object tells it what message it is)
  * - Http decoders (I'm more or less spit balling here)
  */
-@NoArgsConstructor
 public abstract class InterfaceDecoder {
 
     protected InputStream inputStream;
@@ -49,7 +49,7 @@ public abstract class InterfaceDecoder {
      * THIS WILL FLUSH THE BUFFER
      * @return List of all messages that were contained on the buffer
      */
-    public abstract List<InterfaceMessage> decodeMessages();
+    public abstract List<InterfaceMessage> decodeMessages() throws IOException, BaseMessagingException;
 
     /**
      * Reads all messages up to the given number of messages from the buffer.
@@ -57,5 +57,5 @@ public abstract class InterfaceDecoder {
      * @param maxMessages the number of maximum messages to read from the buffer
      * @return List of all messages that were contained on the buffer
      */
-    public abstract List<InterfaceMessage> decodeMessages(int maxMessages);
+    public abstract List<InterfaceMessage> decodeMessages(int maxMessages) throws IOException, BaseMessagingException;
 }
