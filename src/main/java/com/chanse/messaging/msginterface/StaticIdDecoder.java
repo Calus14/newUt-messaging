@@ -30,6 +30,7 @@ public class StaticIdDecoder extends InterfaceDecoder{
     public StaticIdDecoder(InputStream input){
         super(input);
     }
+    public StaticIdDecoder(){ super(null); }
 
     /**
      * Internal helper class that lets us know how to peak at an input to stream to find an ID.
@@ -58,6 +59,7 @@ public class StaticIdDecoder extends InterfaceDecoder{
             validateIdPeekInfo();
         }catch(IdOverlapException e){
             idPeekInfoList.remove(newPeekInfo);
+
             throw e;
         }
     }
@@ -117,8 +119,9 @@ public class StaticIdDecoder extends InterfaceDecoder{
                 }
 
                 InterfaceMessage message = idToMessageMap.get(messageUniqueId);
-                BitUtils.fillMessageFromData(message, dataToDecode);
+                int messageBytes = BitUtils.fillMessageFromData(message, dataToDecode);
                 decodedMessages.add(message);
+                dataToDecode = Arrays.copyOfRange(dataToDecode, messageBytes, dataToDecode.length);
         }
 
         return decodedMessages;

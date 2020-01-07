@@ -45,8 +45,7 @@ public class Utils {
         StandardDataWord randomWord = new StandardDataWord();
 
         randomWord.setNumberOfBytes(bytes);
-        // TODO generate random fields by picking a random value from 1-32 for a field and then adding it and doing this repeatedly until we have
-        // all the bytes filled out. Also put a 1/6 chance that there are no fields in this word. (spare fields).
+
         int bitsLeft = bytes*8;
         int bitOffset = 0;
         while(bitsLeft > 0){

@@ -16,7 +16,7 @@ import java.math.BigInteger;
  */
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = true)
 public class StaticDataField extends InterfaceDataField {
 
     @Override

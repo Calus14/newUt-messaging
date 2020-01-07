@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
 public class EnumDataField extends InterfaceDataField {
 
     static final FieldSpecificEnum UT_ERROR_ENUM = new FieldSpecificEnum("UT_Internal_Error", 0);

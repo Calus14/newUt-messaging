@@ -1,6 +1,6 @@
 {
   "myClassName": "com.chanse.messaging.messages.StandardMessage",
-  "messageAsSerialString": "101011000010011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000010100000000000000000000000000000000000000000000001001001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "messageAsSerialString": "01100111001010000000000000000000110110110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001100111010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
   "messageName": "RandomMessage0",
   "dataWords": [
     {
@@ -9,78 +9,601 @@
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField0",
-          "bitLength": 15,
+          "bitLength": 16,
           "bitOffset": 0,
-          "dataValue": 22035,
-          "dataBinaryString": "101011000010011"
+          "dataValue": 26408,
+          "dataBinaryString": "0110011100101000"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField1",
-          "bitLength": 2,
-          "bitOffset": 36,
-          "dataValue": 0,
-          "dataBinaryString": "00"
+          "bitLength": 16,
+          "bitOffset": 16,
+          "dataValue": 34408,
+          "dataBinaryString": "1000011001101000"
+        }
+      ],
+      "numberOfBytes": 4,
+      "wordDataAsBinaryString": "01100111001010000000000000000000",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 8,
+          "bitOffset": 0,
+          "dataValue": 219,
+          "dataBinaryString": "11011011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 8,
+          "bitOffset": 8,
+          "dataValue": 18,
+          "dataBinaryString": "00010010"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField2",
-          "bitLength": 28,
-          "bitOffset": 38,
-          "dataValue": 164231790,
-          "dataBinaryString": "1001110010011111101001101110"
+          "bitLength": 15,
+          "bitOffset": 16,
+          "dataValue": 21478,
+          "dataBinaryString": "101001111100110"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField3",
-          "bitLength": 17,
-          "bitOffset": 66,
-          "dataValue": 2542,
-          "dataBinaryString": "00000100111101110"
+          "bitLength": 6,
+          "bitOffset": 31,
+          "dataValue": 20,
+          "dataBinaryString": "010100"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField4",
-          "bitLength": 6,
-          "bitOffset": 83,
-          "dataValue": 18,
-          "dataBinaryString": "010010"
+          "bitLength": 14,
+          "bitOffset": 37,
+          "dataValue": 5867,
+          "dataBinaryString": "01011011101011"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField5",
-          "bitLength": 12,
-          "bitOffset": 89,
-          "dataValue": 3860,
-          "dataBinaryString": "111100010100"
+          "bitLength": 22,
+          "bitOffset": 51,
+          "dataValue": 3789887,
+          "dataBinaryString": "1110011101010000111111"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField6",
-          "bitLength": 24,
-          "bitOffset": 101,
-          "dataValue": 10844597,
-          "dataBinaryString": "101001010111100110110101"
+          "bitLength": 3,
+          "bitOffset": 73,
+          "dataValue": 1,
+          "dataBinaryString": "001"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField7",
+          "bitLength": 12,
+          "bitOffset": 76,
+          "dataValue": 697,
+          "dataBinaryString": "001010111001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField8",
+          "bitLength": 2,
+          "bitOffset": 103,
+          "dataValue": 3,
+          "dataBinaryString": "11"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField9",
+          "bitLength": 7,
+          "bitOffset": 105,
+          "dataValue": 42,
+          "dataBinaryString": "0101010"
+        }
+      ],
+      "numberOfBytes": 14,
+      "wordDataAsBinaryString": "1101101100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 10,
+          "bitOffset": 0,
+          "dataValue": 413,
+          "dataBinaryString": "0110011101"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 29,
+          "bitOffset": 10,
+          "dataValue": 465879399,
+          "dataBinaryString": "11011110001001100000101100111"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField2",
+          "bitLength": 10,
+          "bitOffset": 39,
+          "dataValue": 752,
+          "dataBinaryString": "1011110000"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField3",
+          "bitLength": 20,
+          "bitOffset": 49,
+          "dataValue": 441940,
+          "dataBinaryString": "01101011111001010100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField4",
+          "bitLength": 16,
+          "bitOffset": 69,
+          "dataValue": 43458,
+          "dataBinaryString": "1010100111000010"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField5",
+          "bitLength": 8,
+          "bitOffset": 85,
+          "dataValue": 113,
+          "dataBinaryString": "01110001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField6",
+          "bitLength": 1,
+          "bitOffset": 93,
+          "dataValue": 1,
+          "dataBinaryString": "1"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField7",
+          "bitLength": 25,
+          "bitOffset": 94,
+          "dataValue": 17638593,
+          "dataBinaryString": "1000011010010010011000001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField8",
+          "bitLength": 19,
+          "bitOffset": 119,
+          "dataValue": 100755,
+          "dataBinaryString": "0011000100110010011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField9",
+          "bitLength": 4,
+          "bitOffset": 138,
+          "dataValue": 4,
+          "dataBinaryString": "0100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField10",
+          "bitLength": 10,
+          "bitOffset": 142,
+          "dataValue": 983,
+          "dataBinaryString": "1111010111"
+        }
+      ],
+      "numberOfBytes": 19,
+      "wordDataAsBinaryString": "01100111010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordName": ""
+    }
+  ]
+}
+{
+  "myClassName": "com.chanse.messaging.messages.StandardMessage",
+  "messageAsSerialString": "0011010111011001101110100000110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "messageName": "RandomMessage0",
+  "dataWords": [
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 30,
+          "bitOffset": 0,
+          "dataValue": 225865347,
+          "dataBinaryString": "001101011101100110111010000011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 13,
+          "bitOffset": 30,
+          "dataValue": 5688,
+          "dataBinaryString": "1011000111000"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField2",
+          "bitLength": 32,
+          "bitOffset": 43,
+          "dataValue": 1283062,
+          "dataBinaryString": "00000000000100111001001111110110"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField3",
+          "bitLength": 21,
+          "bitOffset": 99,
+          "dataValue": 825866,
+          "dataBinaryString": "011001001101000001010"
+        }
+      ],
+      "numberOfBytes": 15,
+      "wordDataAsBinaryString": "001101011101100110111010000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [],
+      "numberOfBytes": 0,
+      "wordDataAsBinaryString": "",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 1,
+          "bitOffset": 32,
+          "dataValue": 1,
+          "dataBinaryString": "1"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 23,
+          "bitOffset": 33,
+          "dataValue": 7366483,
+          "dataBinaryString": "11100000110011101010011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField2",
+          "bitLength": 23,
+          "bitOffset": 72,
+          "dataValue": 4440389,
+          "dataBinaryString": "10000111100000101000101"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField3",
+          "bitLength": 9,
+          "bitOffset": 95,
+          "dataValue": 216,
+          "dataBinaryString": "011011000"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField4",
+          "bitLength": 5,
+          "bitOffset": 129,
+          "dataValue": 15,
+          "dataBinaryString": "01111"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField5",
+          "bitLength": 2,
+          "bitOffset": 134,
+          "dataValue": 0,
+          "dataBinaryString": "00"
+        }
+      ],
+      "numberOfBytes": 17,
+      "wordDataAsBinaryString": "0000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordName": ""
+    }
+  ]
+}
+{
+  "myClassName": "com.chanse.messaging.messages.StandardMessage",
+  "messageAsSerialString": "11011010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001101001111111111110100000000000000000101101110100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "messageName": "RandomMessage0",
+  "dataWords": [
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 7,
+          "bitOffset": 0,
+          "dataValue": 109,
+          "dataBinaryString": "1101101"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 9,
+          "bitOffset": 26,
+          "dataValue": 212,
+          "dataBinaryString": "011010100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField2",
+          "bitLength": 15,
+          "bitOffset": 35,
+          "dataValue": 31973,
+          "dataBinaryString": "111110011100101"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField3",
+          "bitLength": 9,
+          "bitOffset": 50,
+          "dataValue": 153,
+          "dataBinaryString": "010011001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField4",
+          "bitLength": 5,
+          "bitOffset": 85,
+          "dataValue": 9,
+          "dataBinaryString": "01001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField5",
+          "bitLength": 18,
+          "bitOffset": 90,
+          "dataValue": 45074,
+          "dataBinaryString": "001011000000010010"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField6",
+          "bitLength": 6,
+          "bitOffset": 108,
+          "dataValue": 1,
+          "dataBinaryString": "000001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField7",
+          "bitLength": 7,
+          "bitOffset": 114,
+          "dataValue": 91,
+          "dataBinaryString": "1011011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField8",
+          "bitLength": 19,
+          "bitOffset": 121,
+          "dataValue": 470974,
+          "dataBinaryString": "1110010111110111110"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField9",
+          "bitLength": 4,
+          "bitOffset": 140,
+          "dataValue": 9,
+          "dataBinaryString": "1001"
+        }
+      ],
+      "numberOfBytes": 18,
+      "wordDataAsBinaryString": "110110100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 21,
+          "bitOffset": 0,
+          "dataValue": 868349,
+          "dataBinaryString": "011010011111111111101"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 11,
+          "bitOffset": 21,
+          "dataValue": 1404,
+          "dataBinaryString": "10101111100"
+        }
+      ],
+      "numberOfBytes": 4,
+      "wordDataAsBinaryString": "01101001111111111110100000000000",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
           "bitLength": 17,
-          "bitOffset": 125,
-          "dataValue": 114597,
-          "dataBinaryString": "11011111110100101"
+          "bitOffset": 0,
+          "dataValue": 1466,
+          "dataBinaryString": "00000010110111010"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 24,
+          "bitOffset": 27,
+          "dataValue": 8075959,
+          "dataBinaryString": "011110110011101010110111"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField2",
+          "bitLength": 12,
+          "bitOffset": 59,
+          "dataValue": 1676,
+          "dataBinaryString": "011010001100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField3",
+          "bitLength": 5,
+          "bitOffset": 71,
+          "dataValue": 4,
+          "dataBinaryString": "00100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField4",
+          "bitLength": 21,
+          "bitOffset": 76,
+          "dataValue": 786449,
+          "dataBinaryString": "011000000000000010001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField5",
+          "bitLength": 9,
+          "bitOffset": 97,
+          "dataValue": 1,
+          "dataBinaryString": "000000001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField6",
+          "bitLength": 13,
+          "bitOffset": 106,
+          "dataValue": 2423,
+          "dataBinaryString": "0100101110111"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField7",
+          "bitLength": 1,
+          "bitOffset": 119,
+          "dataValue": 1,
+          "dataBinaryString": "1"
+        }
+      ],
+      "numberOfBytes": 15,
+      "wordDataAsBinaryString": "000000101101110100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordName": ""
+    }
+  ]
+}
+{
+  "myClassName": "com.chanse.messaging.messages.StandardMessage",
+  "messageAsSerialString": "011000000001101001110001000011100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001100101100100000111100000000000000000000000000000000000000000000",
+  "messageName": "RandomMessage0",
+  "dataWords": [
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [],
+      "numberOfBytes": 0,
+      "wordDataAsBinaryString": "",
+      "wordName": ""
+    },
+    {
+      "myClassName": "com.chanse.messaging.words.StandardDataWord",
+      "dataFields": [
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField0",
+          "bitLength": 31,
+          "bitOffset": 0,
+          "dataValue": 806172807,
+          "dataBinaryString": "0110000000011010011100010000111"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField1",
+          "bitLength": 24,
+          "bitOffset": 31,
+          "dataValue": 7712305,
+          "dataBinaryString": "011101011010111000110001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField2",
+          "bitLength": 7,
+          "bitOffset": 55,
+          "dataValue": 125,
+          "dataBinaryString": "1111101"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField3",
+          "bitLength": 15,
+          "bitOffset": 62,
+          "dataValue": 28107,
+          "dataBinaryString": "110110111001011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField4",
+          "bitLength": 8,
+          "bitOffset": 77,
+          "dataValue": 145,
+          "dataBinaryString": "10010001"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField5",
+          "bitLength": 24,
+          "bitOffset": 86,
+          "dataValue": 11301436,
+          "dataBinaryString": "101011000111001000111100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField6",
+          "bitLength": 22,
+          "bitOffset": 110,
+          "dataValue": 3996203,
+          "dataBinaryString": "1111001111101000101011"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField7",
+          "bitLength": 10,
+          "bitOffset": 132,
+          "dataValue": 539,
+          "dataBinaryString": "1000011011"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField8",
           "bitLength": 10,
           "bitOffset": 142,
-          "dataValue": 724,
-          "dataBinaryString": "1011010100"
+          "dataValue": 738,
+          "dataBinaryString": "1011100010"
         }
       ],
       "numberOfBytes": 19,
-      "wordDataAsBinaryString": "10101100001001100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "wordDataAsBinaryString": "01100000000110100111000100001110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "wordName": ""
     },
     {
@@ -89,387 +612,77 @@
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField0",
-          "bitLength": 11,
-          "bitOffset": 0,
-          "dataValue": 261,
-          "dataBinaryString": "00100000101"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 19,
-          "bitOffset": 11,
-          "dataValue": 369588,
-          "dataBinaryString": "1011010001110110100"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField2",
-          "bitLength": 2,
-          "bitOffset": 51,
-          "dataValue": 0,
-          "dataBinaryString": "00"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField3",
-          "bitLength": 3,
-          "bitOffset": 53,
-          "dataValue": 4,
-          "dataBinaryString": "100"
-        }
-      ],
-      "numberOfBytes": 7,
-      "wordDataAsBinaryString": "00100000101000000000000000000000000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 11,
-          "bitOffset": 0,
-          "dataValue": 586,
-          "dataBinaryString": "01001001010"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 32,
-          "bitOffset": 11,
-          "dataValue": 1169267758,
-          "dataBinaryString": "01000101101100011001110000101110"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField2",
-          "bitLength": 18,
-          "bitOffset": 62,
-          "dataValue": 77173,
-          "dataBinaryString": "010010110101110101"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField3",
-          "bitLength": 30,
-          "bitOffset": 106,
-          "dataValue": 545318738,
-          "dataBinaryString": "100000100000001110011101010010"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField4",
-          "bitLength": 16,
-          "bitOffset": 136,
-          "dataValue": 25855,
-          "dataBinaryString": "0110010011111111"
-        }
-      ],
-      "numberOfBytes": 19,
-      "wordDataAsBinaryString": "01001001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "wordName": ""
-    }
-  ]
-}
-{
-  "myClassName": "com.chanse.messaging.messages.StandardMessage",
-  "messageAsSerialString": "11111110001011000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010111001100000001000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "messageName": "RandomMessage0",
-  "dataWords": [
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 14,
-          "bitOffset": 0,
-          "dataValue": 16267,
-          "dataBinaryString": "11111110001011"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
           "bitLength": 21,
-          "bitOffset": 14,
-          "dataValue": 858059,
-          "dataBinaryString": "011010001011111001011"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField2",
-          "bitLength": 5,
-          "bitOffset": 35,
-          "dataValue": 30,
-          "dataBinaryString": "11110"
-        }
-      ],
-      "numberOfBytes": 5,
-      "wordDataAsBinaryString": "1111111000101100000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 3,
           "bitOffset": 0,
-          "dataValue": 1,
-          "dataBinaryString": "001"
+          "dataValue": 1664030,
+          "dataBinaryString": "110010110010000011110"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField1",
-          "bitLength": 29,
-          "bitOffset": 3,
-          "dataValue": 334962182,
-          "dataBinaryString": "10011111101110001111000000110"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField2",
-          "bitLength": 32,
-          "bitOffset": 32,
-          "dataValue": 2179412895,
-          "dataBinaryString": "10000001111001110011001110011111"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField3",
-          "bitLength": 26,
-          "bitOffset": 64,
-          "dataValue": 57556508,
-          "dataBinaryString": "11011011100011111000011100"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField4",
-          "bitLength": 6,
-          "bitOffset": 90,
-          "dataValue": 24,
-          "dataBinaryString": "011000"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField5",
-          "bitLength": 18,
-          "bitOffset": 96,
-          "dataValue": 196650,
-          "dataBinaryString": "110000000000101010"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField6",
-          "bitLength": 6,
-          "bitOffset": 114,
-          "dataValue": 43,
-          "dataBinaryString": "101011"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField7",
-          "bitLength": 32,
-          "bitOffset": 120,
-          "dataValue": 3533338598,
-          "dataBinaryString": "11010010100110100111011111100110"
-        }
-      ],
-      "numberOfBytes": 19,
-      "wordDataAsBinaryString": "00100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 23,
-          "bitOffset": 0,
-          "dataValue": 6078531,
-          "dataBinaryString": "10111001100000001000011"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 16,
-          "bitOffset": 36,
-          "dataValue": 30695,
-          "dataBinaryString": "0111011111100111"
+          "bitLength": 17,
+          "bitOffset": 24,
+          "dataValue": 103965,
+          "dataBinaryString": "11001011000011101"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField2",
           "bitLength": 6,
-          "bitOffset": 52,
-          "dataValue": 34,
-          "dataBinaryString": "100010"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField3",
-          "bitLength": 25,
-          "bitOffset": 68,
-          "dataValue": 2678385,
-          "dataBinaryString": "0001010001101111001110001"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField4",
-          "bitLength": 2,
-          "bitOffset": 121,
-          "dataValue": 0,
-          "dataBinaryString": "00"
-        }
-      ],
-      "numberOfBytes": 16,
-      "wordDataAsBinaryString": "10111001100000001000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "wordName": ""
-    }
-  ]
-}
-{
-  "myClassName": "com.chanse.messaging.messages.StandardMessage",
-  "messageAsSerialString": "011101000100001100001100000000000000000000000000110000100111100001011000000000000000000000000000111100001110101101000000",
-  "messageName": "RandomMessage0",
-  "dataWords": [
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 24,
-          "bitOffset": 0,
-          "dataValue": 7619340,
-          "dataBinaryString": "011101000100001100001100"
-        }
-      ],
-      "numberOfBytes": 6,
-      "wordDataAsBinaryString": "011101000100001100001100000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 22,
-          "bitOffset": 0,
-          "dataValue": 3186198,
-          "dataBinaryString": "1100001001111000010110"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 26,
-          "bitOffset": 22,
-          "dataValue": 2727370,
-          "dataBinaryString": "00001010011001110111001010"
-        }
-      ],
-      "numberOfBytes": 6,
-      "wordDataAsBinaryString": "110000100111100001011000000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 18,
-          "bitOffset": 0,
-          "dataValue": 246701,
-          "dataBinaryString": "111100001110101101"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 6,
-          "bitOffset": 18,
-          "dataValue": 44,
-          "dataBinaryString": "101100"
-        }
-      ],
-      "numberOfBytes": 3,
-      "wordDataAsBinaryString": "111100001110101101000000",
-      "wordName": ""
-    }
-  ]
-}
-{
-  "myClassName": "com.chanse.messaging.messages.StandardMessage",
-  "messageAsSerialString": "0000100010000000000000000000000000000000000000000000000000000000000000001000011111111101101111000000000000000000000000000000000000000000000000000000000000000000000000000000000001110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "messageName": "RandomMessage0",
-  "dataWords": [
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 9,
-          "bitOffset": 0,
-          "dataValue": 17,
-          "dataBinaryString": "000010001"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 29,
-          "bitOffset": 9,
-          "dataValue": 304334941,
-          "dataBinaryString": "10010001000111100100001011101"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField2",
-          "bitLength": 20,
           "bitOffset": 41,
-          "dataValue": 454039,
-          "dataBinaryString": "01101110110110010111"
+          "dataValue": 9,
+          "dataBinaryString": "001001"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField3",
-          "bitLength": 11,
-          "bitOffset": 61,
-          "dataValue": 1153,
-          "dataBinaryString": "10010000001"
+          "bitLength": 4,
+          "bitOffset": 47,
+          "dataValue": 4,
+          "dataBinaryString": "0100"
+        },
+        {
+          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
+          "name": "RandomField4",
+          "bitLength": 13,
+          "bitOffset": 51,
+          "dataValue": 7697,
+          "dataBinaryString": "1111000010001"
         }
       ],
-      "numberOfBytes": 9,
-      "wordDataAsBinaryString": "000010001000000000000000000000000000000000000000000000000000000000000000",
+      "numberOfBytes": 8,
+      "wordDataAsBinaryString": "1100101100100000111100000000000000000000000000000000000000000000",
       "wordName": ""
-    },
+    }
+  ]
+}
+{
+  "myClassName": "com.chanse.messaging.messages.StandardMessage",
+  "messageAsSerialString": "00000000000000000000000001010011111100011101000111010000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010011101111010000101101100100010000000000000000000000000000000000000000000000000000000",
+  "messageName": "RandomMessage0",
+  "dataWords": [
     {
       "myClassName": "com.chanse.messaging.words.StandardDataWord",
       "dataFields": [
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField0",
-          "bitLength": 22,
-          "bitOffset": 0,
-          "dataValue": 2228079,
-          "dataBinaryString": "1000011111111101101111"
+          "bitLength": 27,
+          "bitOffset": 25,
+          "dataValue": 88022301,
+          "dataBinaryString": "101001111110001110100011101"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField1",
-          "bitLength": 7,
-          "bitOffset": 22,
-          "dataValue": 25,
-          "dataBinaryString": "0011001"
+          "bitLength": 4,
+          "bitOffset": 52,
+          "dataValue": 9,
+          "dataBinaryString": "1001"
         }
       ],
       "numberOfBytes": 7,
-      "wordDataAsBinaryString": "10000111111111011011110000000000000000000000000000000000",
+      "wordDataAsBinaryString": "00000000000000000000000001010011111100011101000111010000",
       "wordName": ""
     },
     {
@@ -478,71 +691,40 @@
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField0",
-          "bitLength": 4,
-          "bitOffset": 49,
-          "dataValue": 14,
-          "dataBinaryString": "1110"
+          "bitLength": 1,
+          "bitOffset": 0,
+          "dataValue": 1,
+          "dataBinaryString": "1"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField1",
-          "bitLength": 20,
-          "bitOffset": 53,
-          "dataValue": 489196,
-          "dataBinaryString": "01110111011011101100"
+          "bitLength": 17,
+          "bitOffset": 1,
+          "dataValue": 90986,
+          "dataBinaryString": "10110001101101010"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField2",
-          "bitLength": 18,
-          "bitOffset": 73,
-          "dataValue": 139202,
-          "dataBinaryString": "100001111111000010"
+          "bitLength": 20,
+          "bitOffset": 18,
+          "dataValue": 39196,
+          "dataBinaryString": "00001001100100011100"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField3",
-          "bitLength": 12,
-          "bitOffset": 91,
-          "dataValue": 1151,
-          "dataBinaryString": "010001111111"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField4",
-          "bitLength": 26,
-          "bitOffset": 103,
-          "dataValue": 3018635,
-          "dataBinaryString": "00001011100000111110001011"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField5",
-          "bitLength": 15,
-          "bitOffset": 129,
-          "dataValue": 3135,
-          "dataBinaryString": "000110000111111"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField6",
-          "bitLength": 2,
-          "bitOffset": 144,
-          "dataValue": 1,
-          "dataBinaryString": "01"
+          "bitLength": 10,
+          "bitOffset": 38,
+          "dataValue": 71,
+          "dataBinaryString": "0001000111"
         }
       ],
-      "numberOfBytes": 19,
-      "wordDataAsBinaryString": "00000000000000000000000000000000000000000000000001110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "numberOfBytes": 6,
+      "wordDataAsBinaryString": "100000000000000000000000000000000000000000000000",
       "wordName": ""
-    }
-  ]
-}
-{
-  "myClassName": "com.chanse.messaging.messages.StandardMessage",
-  "messageAsSerialString": "100001000010000101011000011111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011111111100100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100111010000",
-  "messageName": "RandomMessage0",
-  "dataWords": [
+    },
     {
       "myClassName": "com.chanse.messaging.words.StandardDataWord",
       "dataFields": [
@@ -550,109 +732,37 @@
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField0",
           "bitLength": 32,
-          "bitOffset": 0,
-          "dataValue": 2216777854,
-          "dataBinaryString": "10000100001000010101100001111110"
+          "bitOffset": 57,
+          "dataValue": 1324625297,
+          "dataBinaryString": "01001110111101000010110110010001"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField1",
-          "bitLength": 30,
-          "bitOffset": 32,
-          "dataValue": 438243364,
-          "dataBinaryString": "011010000111110001000000100100"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField2",
-          "bitLength": 30,
-          "bitOffset": 62,
-          "dataValue": 117218895,
-          "dataBinaryString": "000110111111001001111001001111"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField3",
-          "bitLength": 22,
-          "bitOffset": 98,
-          "dataValue": 1754956,
-          "dataBinaryString": "0110101100011101001100"
-        }
-      ],
-      "numberOfBytes": 15,
-      "wordDataAsBinaryString": "100001000010000101011000011111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
           "bitLength": 13,
-          "bitOffset": 0,
-          "dataValue": 4089,
-          "dataBinaryString": "0111111111001"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField1",
-          "bitLength": 9,
-          "bitOffset": 73,
-          "dataValue": 219,
-          "dataBinaryString": "011011011"
+          "bitOffset": 89,
+          "dataValue": 2476,
+          "dataBinaryString": "0100110101100"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField2",
-          "bitLength": 3,
-          "bitOffset": 82,
-          "dataValue": 5,
-          "dataBinaryString": "101"
+          "bitLength": 12,
+          "bitOffset": 102,
+          "dataValue": 1093,
+          "dataBinaryString": "010001000101"
         },
         {
           "myClassName": "com.chanse.messaging.fields.IntegerDataField",
           "name": "RandomField3",
-          "bitLength": 5,
-          "bitOffset": 85,
-          "dataValue": 22,
-          "dataBinaryString": "10110"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField4",
-          "bitLength": 23,
-          "bitOffset": 90,
-          "dataValue": 5536526,
-          "dataBinaryString": "10101000111101100001110"
-        },
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField5",
-          "bitLength": 15,
-          "bitOffset": 113,
-          "dataValue": 18013,
-          "dataBinaryString": "100011001011101"
+          "bitLength": 10,
+          "bitOffset": 114,
+          "dataValue": 153,
+          "dataBinaryString": "0010011001"
         }
       ],
-      "numberOfBytes": 16,
-      "wordDataAsBinaryString": "01111111110010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-      "wordName": ""
-    },
-    {
-      "myClassName": "com.chanse.messaging.words.StandardDataWord",
-      "dataFields": [
-        {
-          "myClassName": "com.chanse.messaging.fields.IntegerDataField",
-          "name": "RandomField0",
-          "bitLength": 12,
-          "bitOffset": 28,
-          "dataValue": 2512,
-          "dataBinaryString": "100111010000"
-        }
-      ],
-      "numberOfBytes": 5,
-      "wordDataAsBinaryString": "0000000000000000000000000000100111010000",
+      "numberOfBytes": 18,
+      "wordDataAsBinaryString": "000000000000000000000000000000000000000000000000000000000010011101111010000101101100100010000000000000000000000000000000000000000000000000000000",
       "wordName": ""
     }
   ]

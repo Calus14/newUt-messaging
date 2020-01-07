@@ -3,7 +3,9 @@ package com.chanse.messaging.msginterface;
 import com.chanse.messaging.exceptions.BaseMessagingException;
 import com.chanse.messaging.messages.InterfaceMessage;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +22,10 @@ import java.util.List;
  */
 public abstract class InterfaceDecoder {
 
+    @Getter
+    @Setter
     protected InputStream inputStream;
+
     public InterfaceDecoder(InputStream inputStream){
         this.inputStream = inputStream;
     }

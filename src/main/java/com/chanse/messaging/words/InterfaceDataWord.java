@@ -59,6 +59,11 @@ public abstract class InterfaceDataWord {
     protected transient Set<InterfaceDataField> changedFields = new HashSet<>();
 
     @Override
+    public int hashCode(){
+        return super.hashCode();
+    }
+
+    @Override
     public boolean equals(Object other){
         if(other instanceof InterfaceDataWord == false)
             return false;
@@ -84,9 +89,7 @@ public abstract class InterfaceDataWord {
         public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
             if(propertyChangeEvent.getSource() instanceof InterfaceDataField){
                 fieldDataHasChanged = true;
-                if (!changedFields.contains((InterfaceDataField)propertyChangeEvent.getSource())){
-                    changedFields.add((InterfaceDataField)propertyChangeEvent.getSource());
-                }
+                changedFields.add((InterfaceDataField)propertyChangeEvent.getSource());
             }
         }
     };
