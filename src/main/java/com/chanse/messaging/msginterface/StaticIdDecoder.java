@@ -97,7 +97,8 @@ public class StaticIdDecoder extends InterfaceDecoder{
                     "\nHas already been added to the StaticIdDecoder");
         }
 
-        idToMessageMap.put(idValues, message);
+        // Add a clone so that in the case the message is modifified by another service the copy doesnt change.
+        idToMessageMap.put(idValues, message.clone());
     }
 
     @Override
@@ -118,7 +119,8 @@ public class StaticIdDecoder extends InterfaceDecoder{
                     break;
                 }
 
-                InterfaceMessage message = idToMessageMap.get(messageUniqueId);
+                // Get a clone so that it can be unique from other messages.
+                InterfaceMessage message = idToMessageMap.get(messageUniqueId).clone();
                 int messageBytes = BitUtils.fillMessageFromData(message, dataToDecode);
                 decodedMessages.add(message);
                 dataToDecode = Arrays.copyOfRange(dataToDecode, messageBytes, dataToDecode.length);

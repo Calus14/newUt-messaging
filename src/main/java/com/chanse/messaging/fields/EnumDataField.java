@@ -54,4 +54,16 @@ public class EnumDataField extends InterfaceDataField {
             }
         }
     }
+
+    @Override
+    public EnumDataField clone(){
+        EnumDataField clone = (EnumDataField) super.clone();
+        clone.allowedEnums = this.allowedEnums;
+        return clone;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
 }

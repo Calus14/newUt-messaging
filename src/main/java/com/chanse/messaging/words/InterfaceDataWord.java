@@ -10,6 +10,7 @@ import lombok.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.Set;
  */
 @Data
 @NoArgsConstructor
-public abstract class InterfaceDataWord {
+public abstract class InterfaceDataWord implements Cloneable{
 
     @Setter(AccessLevel.NONE)
     protected String myClassName = this.getClass().getName();
@@ -57,6 +58,28 @@ public abstract class InterfaceDataWord {
 
     // Whenever a field changes we should know bout it so we can update just the one and be more effecient
     protected transient Set<InterfaceDataField> changedFields = new HashSet<>();
+
+    @Override
+    public InterfaceDataWord clone(){
+        InterfaceDataWord clone;
+        try {
+            clone = (InterfaceDataWord)Class.forName(this.getMyClassName()).getConstructor().newInstance();
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
+            // TODO throw to error handling service
+            e.printStackTrace();
+            return null;
+        }
+
+        clone.setWordName(this.getWordName());
+        clone.myClassName = this.getMyClassName();
+        clone.numberOfBytes = this.numberOfBytes;
+        clone.wordDataAsBinaryString = this.wordDataAsBinaryString;
+        this.dataFields.stream().forEach( field -> {
+            clone.addDataField(field.clone());
+        });
+
+        return clone;
+    }
 
     @Override
     public int hashCode(){

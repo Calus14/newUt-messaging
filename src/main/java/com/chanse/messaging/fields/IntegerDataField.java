@@ -16,7 +16,6 @@ import java.math.BigInteger;
  */
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class IntegerDataField extends InterfaceDataField {
 
     @Override
@@ -39,5 +38,10 @@ public class IntegerDataField extends InterfaceDataField {
         else{
             this.dataValue = new BigInteger(this.dataBinaryString, 2);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return super.equals(obj);
     }
 }

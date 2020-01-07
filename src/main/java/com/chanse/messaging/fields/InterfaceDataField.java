@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class InterfaceDataField {
+public abstract class InterfaceDataField implements Cloneable{
 
     @Setter(AccessLevel.NONE)
     protected String myClassName = this.getClass().getName();
@@ -78,11 +79,11 @@ public abstract class InterfaceDataField {
     }
 
     public void setDataValue(Object dataObject) throws Exception{
-        if( !dataObject.getClass().equals(dataValue.getClass()) )
+        if( dataObject != null && dataValue != null && !dataObject.getClass().equals(dataValue.getClass()) )
             throw new Exception("Tried to set data with class "+dataObject.getClass()+" on field named "+name+
                                  " which holds data with of type "+dataValue.getClass());
 
-        if( dataObject.equals(this.dataValue) )
+        if( dataObject != null && dataValue != null && dataObject.equals(this.dataValue) )
             return;
         Object oldData = this.dataValue;
         this.dataValue = dataObject;
@@ -94,7 +95,7 @@ public abstract class InterfaceDataField {
     }
 
     public void setDataBinaryString(String dataBinaryString){
-        if( dataBinaryString.equals(this.dataBinaryString) )
+        if( dataBinaryString != null && dataBinaryString.equals(this.dataBinaryString) )
             return;
 
         String oldBinaryString = this.dataBinaryString;
@@ -104,6 +105,48 @@ public abstract class InterfaceDataField {
         myDataChangeListeners.stream().forEach(listener -> {
             listener.propertyChange(new PropertyChangeEvent(this, "dataBinaryString", oldBinaryString, dataBinaryString));
         });
+    }
+
+    /**
+     * Clone method of base class that uses the fact all instances know what class type they are
+     * to instantiate the correct type of that class then set basic information on it. Children
+     * classes should call this class then set further specific info on it
+     * @return a Deep Copy of the child class with all base info a deep copy already set
+     */
+    @Override
+    public InterfaceDataField clone() {
+        InterfaceDataField clone;
+        try {
+            clone = (InterfaceDataField) Class.forName(this.getMyClassName()).getConstructor().newInstance();
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
+            // TODO throw to error handling service
+            e.printStackTrace();
+            return null;
+        }
+
+        clone.name = this.name;
+        clone.myClassName = this.myClassName;
+        clone.dataBinaryString = this.dataBinaryString;
+        clone.bitLength = this.bitLength;
+        clone.bitOffset = this.bitOffset;
+        clone.dataValue = this.dataValue;
+
+        return clone;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof InterfaceDataField == false)
+            return false;
+
+        InterfaceDataField other = (InterfaceDataField)obj;
+        if(!other.getMyClassName().equals(this.getMyClassName()))
+            return false;
+
+        return( this.getName().equals(other.getName()) &&
+                this.getBitOffset() == other.getBitOffset() &&
+                this.getBitLength() == other.getBitLength() &&
+                this.getDataValue().equals(other.getDataValue()));
     }
 
     public static class InterfaceDataFieldDeserializer implements JsonDeserializer<InterfaceDataField> {

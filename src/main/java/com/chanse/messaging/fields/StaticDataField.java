@@ -4,6 +4,7 @@ import com.chanse.messaging.utils.BitUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
 
@@ -15,9 +16,12 @@ import java.math.BigInteger;
  * The Data Value that a Static Data Field will hold will be a BigInteger
  */
 @Data
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class StaticDataField extends InterfaceDataField {
+
+    public StaticDataField(){
+        this.dataValue = null;
+        this.dataBinaryString = null;
+    }
 
     @Override
     public void setDataHasChanged(boolean dataHasChanged) {
@@ -25,35 +29,40 @@ public class StaticDataField extends InterfaceDataField {
     }
 
     @Override
+    public void setBitLength(long bitLength){
+        this.bitLength = bitLength;
+    }
+
+    @Override
     protected void updateBinaryString() {
-        if(dataValue == null){
-            this.dataValue = new BigInteger("0");
-            this.dataBinaryString = "";
-        }
-        else {
+        if(dataValue != null){
             this.dataBinaryString = BitUtils.getBinaryStringFromBigInt((BigInteger) dataValue, (int) bitLength);
         }
     }
 
     @Override
     protected void updateDataValue() {
-        if(this.dataBinaryString == null){
-            this.dataBinaryString = "";
-            this.dataValue = new BigInteger("0");
-        }
-        else{
+        if(this.dataBinaryString != null){
             this.dataValue = new BigInteger(this.dataBinaryString, 2);
         }
     }
 
     @Override
-    public void setDataValue(Object dataValue){
-        // Return;
+    public void setDataValue(Object dataValue) throws Exception{
+        if(this.dataValue == null) {
+            super.setDataValue(dataValue);
+        }
     }
 
     @Override
     public void setDataBinaryString(String dataBinaryString){
-        // Return;
+        if(this.dataBinaryString == null){
+            super.setDataBinaryString(dataBinaryString);
+        }
     }
 
+    @Override
+    public boolean equals(Object obj){
+        return super.equals(obj);
+    }
 }

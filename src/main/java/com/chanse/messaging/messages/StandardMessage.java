@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class StandardMessage extends InterfaceMessage {
 
     /**
@@ -41,6 +40,11 @@ public class StandardMessage extends InterfaceMessage {
         dataWords.stream().forEach( word -> {
             this.messageAsSerialString.append(word.getWordDataAsBinaryString());
         });
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return super.equals(obj);
     }
 
 }

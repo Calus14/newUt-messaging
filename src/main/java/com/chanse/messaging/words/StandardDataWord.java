@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class StandardDataWord extends InterfaceDataWord{
 
     @Override
@@ -55,5 +54,10 @@ public class StandardDataWord extends InterfaceDataWord{
             for(int i =0; i<100; i++)
                 System.out.println("Holy shit broken stuff enable logging for slf4j please you idiot.");
         }
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return super.equals(obj);
     }
 }

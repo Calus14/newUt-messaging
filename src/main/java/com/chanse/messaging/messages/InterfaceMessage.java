@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class InterfaceMessage{
+public abstract class InterfaceMessage implements Cloneable{
 
     @Setter(AccessLevel.NONE)
     protected String myClassName = this.getClass().getName();
@@ -44,9 +45,10 @@ public abstract class InterfaceMessage{
     public boolean equals(Object other){
         if(other instanceof InterfaceMessage == false)
             return false;
+
         InterfaceMessage otherMessage = (InterfaceMessage)other;
         if( !this.messageName.equals(otherMessage.messageName) ||
-            !this.messageAsSerialString.equals(otherMessage.messageAsSerialString))
+            !this.messageAsSerialString.toString().equals(otherMessage.messageAsSerialString.toString()))
             return false;
 
         if( dataWords.size() != otherMessage.dataWords.size() )
@@ -59,6 +61,33 @@ public abstract class InterfaceMessage{
 
         return true;
     }
+
+    /**
+     * Clone method of base class that uses the fact all instances know what class type they are
+     * to instantiate the correct type of that class then set basic information on it. Children
+     * classes should call this class then set further specific info on it
+     * @return a Deep Copy of the child class with all base info a deep copy already set
+     */
+    @Override
+    public InterfaceMessage clone(){
+        InterfaceMessage clone;
+        try {
+            clone = (InterfaceMessage)Class.forName(this.getMyClassName()).getConstructor().newInstance();
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | ClassNotFoundException e) {
+            // TODO throw to error handling service
+            e.printStackTrace();
+            return null;
+        }
+
+        clone.setMessageName(this.getMessageName());
+        clone.myClassName = this.getMyClassName();
+        clone.messageAsSerialString = new StringBuffer(this.getMessageAsSerialString());
+        this.dataWords.stream().forEach( word -> {
+            clone.addDataWord(word.clone());
+        });
+        return clone;
+    }
+
 
     /**
      * Method each message type will need to implement for how to find out its binary string. Different message
@@ -107,4 +136,5 @@ public abstract class InterfaceMessage{
             }
         }
     }
+
 }
