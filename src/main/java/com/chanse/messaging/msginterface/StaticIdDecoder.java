@@ -5,11 +5,16 @@ import com.chanse.messaging.utils.BitUtils;
 import com.chanse.messaging.exceptions.DuplicateMessageIdException;
 import com.chanse.messaging.exceptions.IdOverlapException;
 import com.chanse.messaging.messages.InterfaceMessage;
+import com.chanse.messaging.utils.MessagingSaveable;
+import com.chanse.messaging.utils.SaveLoadUtils;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -51,6 +56,30 @@ public class StaticIdDecoder extends InterfaceDecoder{
 
     protected List<IdPeekInfo> idPeekInfoList = new ArrayList<>();
     protected Map<List<BigInteger>, InterfaceMessage> idToMessageMap = new HashMap<>();
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof StaticIdDecoder == false)
+            return false;
+        StaticIdDecoder other = (StaticIdDecoder)obj;
+
+        if(idPeekInfoList.size() != other.idPeekInfoList.size())
+            return false;
+        for(int i = 0; i < idPeekInfoList.size(); i++){
+            if(!idPeekInfoList.get(i).equals(other.idPeekInfoList.get(i)))
+                return false;
+        }
+
+        if(idToMessageMap.size() != other.idToMessageMap.size())
+            return false;
+        for(Map.Entry e : idToMessageMap.entrySet()){
+            if( !other.idToMessageMap.containsKey(e.getKey()) ||
+                !other.idToMessageMap.get(e.getKey()).equals(e.getValue()) )
+                return false;
+        }
+
+        return true;
+    }
 
     public void addIdPeekInfo(int offset, int length) throws IdOverlapException {
         IdPeekInfo newPeekInfo = new IdPeekInfo(offset, length);
@@ -153,5 +182,46 @@ public class StaticIdDecoder extends InterfaceDecoder{
         }
 
         return decodedMessages;
+    }
+
+    public static class StaticIdDecoderAdapter implements JsonDeserializer<StaticIdDecoder> {
+        static protected Type peekListType = new TypeToken<ArrayList<IdPeekInfo>>() {}.getType();
+        static protected Type idMapType = new TypeToken<HashMap<String, InterfaceMessage>>() {}.getType();
+
+        @Override
+        public StaticIdDecoder deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
+
+            try {
+                StaticIdDecoder decoder = new StaticIdDecoder();
+
+                JsonObject decoderAsJSon = (JsonObject)json;
+                JsonArray idPeekInfoJson = decoderAsJSon.getAsJsonArray("idPeekInfoList");
+                decoder.idPeekInfoList = SaveLoadUtils.myRegisteredGson.fromJson(idPeekInfoJson, peekListType);
+
+                JsonObject idToMessageMapJson = decoderAsJSon.getAsJsonObject("idToMessageMap");
+                HashMap<String, InterfaceMessage> stringtoMessageMap =
+                                        SaveLoadUtils.myRegisteredGson.fromJson(idPeekInfoJson, idMapType);
+                /*
+                Convert comma separated String to List
+
+List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
+The above code splits the string on a delimiter defined as: zero or more whitespace, a literal comma, zero or more whitespace which will place the words into the list and collapse any whitespace between the words and commas.
+
+Please note that this returns simply a wrapper on an array: you CANNOT for example .remove() from the resulting List. For an
+                 */
+                for(Map.Entry e : )
+
+                //Type mapType = new TypeToken<HashMap<>>
+
+
+                Class messageType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
+
+                return decoder;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ public abstract class InterfaceDecoder implements MessagingSaveable {
 
     @Getter
     @Setter
-    protected InputStream inputStream;
+    transient protected InputStream inputStream;
 
     public InterfaceDecoder(InputStream inputStream){
         this.inputStream = inputStream;
@@ -37,8 +37,8 @@ public abstract class InterfaceDecoder implements MessagingSaveable {
 
     // To avoid throwing exceptions we will just internally note if an error occurs.
     // Otherwise there is the case where 1 message in 10,000 cause the entire internal state to fail
-    static boolean errorOccurred = false;
-    static StringBuffer errorLog = new StringBuffer();
+    transient static boolean errorOccurred = false;
+    transient static StringBuffer errorLog = new StringBuffer();
 
     public boolean hasErrorOccured(){
         return errorOccurred;

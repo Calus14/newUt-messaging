@@ -1,10 +1,14 @@
 package com.chanse.messaging.fields;
 
 import com.chanse.messaging.utils.BitUtils;
+import com.chanse.messaging.utils.MessagingSaveable;
+import com.chanse.messaging.utils.SaveLoadUtils;
+import com.google.gson.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 
 /**
@@ -16,7 +20,7 @@ import java.math.BigInteger;
  */
 @Data
 @AllArgsConstructor
-public class IntegerDataField extends InterfaceDataField {
+public class IntegerDataField extends InterfaceDataField<BigInteger> {
 
     @Override
     protected void updateBinaryString() {
@@ -44,4 +48,5 @@ public class IntegerDataField extends InterfaceDataField {
     public boolean equals(Object obj){
         return super.equals(obj);
     }
+
 }

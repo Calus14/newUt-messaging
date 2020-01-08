@@ -1,0 +1,22 @@
+{
+  "idPeekInfoList": [
+    {
+      "bitOffset": 0,
+      "bitLength": 5
+    },
+    {
+      "bitOffset": 5,
+      "bitLength": 3
+    },
+    {
+      "bitOffset": 8,
+      "bitLength": 3
+    },
+    {
+      "bitOffset": 11,
+      "bitLength": 3
+    }
+  ],
+  "idToMessageMap": {},
+  "myClassName": "com.chanse.messaging.msginterface.StaticIdDecoder"
+}

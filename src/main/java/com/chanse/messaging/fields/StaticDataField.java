@@ -16,7 +16,7 @@ import java.math.BigInteger;
  * The Data Value that a Static Data Field will hold will be a BigInteger
  */
 @Data
-public class StaticDataField extends InterfaceDataField {
+public class StaticDataField extends InterfaceDataField<BigInteger> {
 
     public StaticDataField(){
         this.dataValue = null;
@@ -48,7 +48,7 @@ public class StaticDataField extends InterfaceDataField {
     }
 
     @Override
-    public void setDataValue(Object dataValue) throws Exception{
+    public void setDataValue(BigInteger dataValue) throws Exception{
         if(this.dataValue == null) {
             super.setDataValue(dataValue);
         }

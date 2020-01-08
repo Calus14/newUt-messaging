@@ -27,7 +27,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class InterfaceDataField implements Cloneable, MessagingSaveable{
+public abstract class InterfaceDataField<T> implements Cloneable, MessagingSaveable{
 
     // Name of the field itself. Must be unique to each message
     protected String name = new String("");
@@ -37,7 +37,7 @@ public abstract class InterfaceDataField implements Cloneable, MessagingSaveable
     protected long bitOffset;
 
     // The value the field in whatever object its binary represents
-    protected Object dataValue;
+    protected T dataValue;
 
     // The value of the field in binary but stored as a string
     protected String dataBinaryString = "";
@@ -76,11 +76,7 @@ public abstract class InterfaceDataField implements Cloneable, MessagingSaveable
         myDataChangeListeners.remove(dataChangeListener);
     }
 
-    public void setDataValue(Object dataObject) throws Exception{
-        if( dataObject != null && dataValue != null && !dataObject.getClass().equals(dataValue.getClass()) )
-            throw new Exception("Tried to set data with class "+dataObject.getClass()+" on field named "+name+
-                                 " which holds data with of type "+dataValue.getClass());
-
+    public void setDataValue(T dataObject) throws Exception{
         if( dataObject != null && dataValue != null && dataObject.equals(this.dataValue) )
             return;
         Object oldData = this.dataValue;

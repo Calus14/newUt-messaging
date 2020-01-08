@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class EnumDataField extends InterfaceDataField {
+public class EnumDataField extends InterfaceDataField<EnumDataField.FieldSpecificEnum> {
 
     static final FieldSpecificEnum UT_ERROR_ENUM = new FieldSpecificEnum("UT_Internal_Error", 0);
 
@@ -25,7 +25,7 @@ public class EnumDataField extends InterfaceDataField {
      */
     @Data
     @AllArgsConstructor
-    static protected class FieldSpecificEnum{
+    static public class FieldSpecificEnum{
         protected String enumName;
         protected Integer enumValue;
     }

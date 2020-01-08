@@ -1,0 +1,137 @@
+{
+  "idPeekInfoList": [
+    {
+      "bitOffset": 5,
+      "bitLength": 3
+    }
+  ],
+  "idToMessageMap": {
+    "[1]": {
+      "messageAsSerialString": "000010010000001010000001",
+      "messageName": "Message1",
+      "dataWords": [
+        {
+          "dataFields": [
+            {
+              "name": "Id 1",
+              "bitLength": 5,
+              "bitOffset": 0,
+              "dataValue": 1,
+              "dataBinaryString": "00001",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            },
+            {
+              "name": "Id 2",
+              "bitLength": 3,
+              "bitOffset": 5,
+              "dataValue": 1,
+              "dataBinaryString": "001",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            }
+          ],
+          "numberOfBytes": 1,
+          "wordDataAsBinaryString": "00001001",
+          "wordName": "",
+          "myClassName": "com.chanse.messaging.words.StandardDataWord"
+        },
+        {
+          "dataFields": [
+            {
+              "name": "Field1",
+              "bitLength": 7,
+              "bitOffset": 0,
+              "dataValue": 1,
+              "dataBinaryString": "0000001",
+              "myClassName": "com.chanse.messaging.fields.IntegerDataField"
+            },
+            {
+              "name": "Field2",
+              "bitLength": 1,
+              "bitOffset": 8,
+              "dataValue": 1,
+              "dataBinaryString": "1",
+              "myClassName": "com.chanse.messaging.fields.IntegerDataField"
+            },
+            {
+              "name": "Field3",
+              "bitLength": 7,
+              "bitOffset": 9,
+              "dataValue": 1,
+              "dataBinaryString": "0000001",
+              "myClassName": "com.chanse.messaging.fields.IntegerDataField"
+            }
+          ],
+          "numberOfBytes": 2,
+          "wordDataAsBinaryString": "0000001010000001",
+          "wordName": "",
+          "myClassName": "com.chanse.messaging.words.StandardDataWord"
+        }
+      ],
+      "myClassName": "com.chanse.messaging.messages.StandardMessage"
+    },
+    "[2]": {
+      "messageAsSerialString": "000100100000010000000010",
+      "messageName": "Message2",
+      "dataWords": [
+        {
+          "dataFields": [
+            {
+              "name": "Id 1_2",
+              "bitLength": 5,
+              "bitOffset": 0,
+              "dataValue": 2,
+              "dataBinaryString": "00010",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            },
+            {
+              "name": "Id 2_2",
+              "bitLength": 3,
+              "bitOffset": 5,
+              "dataValue": 2,
+              "dataBinaryString": "010",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            }
+          ],
+          "numberOfBytes": 1,
+          "wordDataAsBinaryString": "00010010",
+          "wordName": "",
+          "myClassName": "com.chanse.messaging.words.StandardDataWord"
+        },
+        {
+          "dataFields": [
+            {
+              "name": "Field1_2",
+              "bitLength": 7,
+              "bitOffset": 0,
+              "dataValue": 2,
+              "dataBinaryString": "0000010",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            },
+            {
+              "name": "Field2_2",
+              "bitLength": 1,
+              "bitOffset": 8,
+              "dataValue": 0,
+              "dataBinaryString": "0",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            },
+            {
+              "name": "Field3_2",
+              "bitLength": 7,
+              "bitOffset": 9,
+              "dataValue": 2,
+              "dataBinaryString": "0000010",
+              "myClassName": "com.chanse.messaging.fields.StaticDataField"
+            }
+          ],
+          "numberOfBytes": 2,
+          "wordDataAsBinaryString": "0000010000000010",
+          "wordName": "",
+          "myClassName": "com.chanse.messaging.words.StandardDataWord"
+        }
+      ],
+      "myClassName": "com.chanse.messaging.messages.StandardMessage"
+    }
+  },
+  "myClassName": "com.chanse.messaging.msginterface.StaticIdDecoder"
+}
