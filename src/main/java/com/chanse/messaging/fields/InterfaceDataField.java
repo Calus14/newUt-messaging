@@ -1,6 +1,7 @@
 package com.chanse.messaging.fields;
 
 import com.chanse.messaging.messages.InterfaceMessage;
+import com.chanse.messaging.utils.MessagingSaveable;
 import com.chanse.messaging.utils.SaveLoadUtils;
 import com.google.gson.*;
 import lombok.*;
@@ -26,10 +27,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class InterfaceDataField implements Cloneable{
-
-    @Setter(AccessLevel.NONE)
-    protected String myClassName = this.getClass().getName();
+public abstract class InterfaceDataField implements Cloneable, MessagingSaveable{
 
     // Name of the field itself. Must be unique to each message
     protected String name = new String("");
@@ -125,7 +123,6 @@ public abstract class InterfaceDataField implements Cloneable{
         }
 
         clone.name = this.name;
-        clone.myClassName = this.myClassName;
         clone.dataBinaryString = this.dataBinaryString;
         clone.bitLength = this.bitLength;
         clone.bitOffset = this.bitOffset;
@@ -147,19 +144,5 @@ public abstract class InterfaceDataField implements Cloneable{
                 this.getBitOffset() == other.getBitOffset() &&
                 this.getBitLength() == other.getBitLength() &&
                 this.getDataValue().equals(other.getDataValue()));
-    }
-
-    public static class InterfaceDataFieldDeserializer implements JsonDeserializer<InterfaceDataField> {
-        @Override
-        public InterfaceDataField deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            try {
-                Class fieldType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
-                return (InterfaceDataField)SaveLoadUtils.myGson.fromJson(json, fieldType);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-                return null;
-            }
-        }
     }
 }

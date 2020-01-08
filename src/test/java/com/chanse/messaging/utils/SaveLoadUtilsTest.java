@@ -18,7 +18,6 @@ import static org.junit.Assert.*;
 
 public class SaveLoadUtilsTest {
 
-
     /**
      * Test to verify that loading from known GSON File will create the correct Message, files named for what they should actually be
      */
@@ -44,7 +43,7 @@ public class SaveLoadUtilsTest {
         }
         catch(Exception e){
             e.printStackTrace();
-            System.out.println(e.getMessage());
+            fail(e.getMessage());
         }
     }
 }

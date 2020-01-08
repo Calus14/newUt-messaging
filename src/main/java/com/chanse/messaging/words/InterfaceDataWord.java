@@ -4,6 +4,7 @@ import com.chanse.messaging.exceptions.BadFieldWriteException;
 import com.chanse.messaging.fields.InterfaceDataField;
 import com.chanse.messaging.fields.StaticDataField;
 import com.chanse.messaging.messages.InterfaceMessage;
+import com.chanse.messaging.utils.MessagingSaveable;
 import com.chanse.messaging.utils.SaveLoadUtils;
 import com.google.gson.*;
 import lombok.*;
@@ -31,10 +32,7 @@ import java.util.Set;
  */
 @Data
 @NoArgsConstructor
-public abstract class InterfaceDataWord implements Cloneable{
-
-    @Setter(AccessLevel.NONE)
-    protected String myClassName = this.getClass().getName();
+public abstract class InterfaceDataWord implements Cloneable, MessagingSaveable{
 
     // All of the words possible fields are stored here, it is up to the message to figure out how to go about handling
     // Which word is in which order. This should be done from the message configuration Service
@@ -71,7 +69,6 @@ public abstract class InterfaceDataWord implements Cloneable{
         }
 
         clone.setWordName(this.getWordName());
-        clone.myClassName = this.getMyClassName();
         clone.numberOfBytes = this.numberOfBytes;
         clone.wordDataAsBinaryString = this.wordDataAsBinaryString;
         this.dataFields.stream().forEach( field -> {
@@ -138,17 +135,4 @@ public abstract class InterfaceDataWord implements Cloneable{
     // Being included on the Data object because we want to have the data knowledgeable of itself as bytes
     public abstract void updateChangedFields() throws BadFieldWriteException;
 
-    public static class InterfaceDataWordDeserializer implements JsonDeserializer<InterfaceDataWord> {
-        @Override
-        public InterfaceDataWord deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            try {
-                Class wordType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
-                return (InterfaceDataWord)SaveLoadUtils.myGson.fromJson(json, wordType);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-                return null;
-            }
-        }
-    }
 }

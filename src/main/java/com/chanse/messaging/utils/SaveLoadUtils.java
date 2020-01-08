@@ -6,6 +6,7 @@ import com.chanse.messaging.fields.InterfaceDataField;
 import com.chanse.messaging.fields.StaticDataField;
 import com.chanse.messaging.messages.InterfaceMessage;
 import com.chanse.messaging.messages.StandardMessage;
+import com.chanse.messaging.msginterface.InterfaceDecoder;
 import com.chanse.messaging.words.InterfaceDataWord;
 import com.chanse.messaging.words.StandardDataWord;
 import com.google.gson.Gson;
@@ -36,22 +37,16 @@ public class SaveLoadUtils {
     private SaveLoadUtils(){
         myGson = new GsonBuilder()
                 // DESERIALIZERS
-                // Messages
-                .registerTypeAdapter(InterfaceMessage.class, new InterfaceMessage.InterfaceMessageDeserializer())
-                // Words
-                .registerTypeAdapter(InterfaceDataWord.class, new InterfaceDataWord.InterfaceDataWordDeserializer())
-                //Fields
-                .registerTypeAdapter(InterfaceDataField.class, new InterfaceDataField.InterfaceDataFieldDeserializer())
+                .registerTypeAdapter(InterfaceMessage.class, new MessagingSaveable.MessageSaveableDeserializer())
                 .setPrettyPrinting()
                 .create();
     }
 
     public String getMessageSaveString(InterfaceMessage msg){
         String answer = myGson.toJson(msg);
-        JsonElement ele = myGson.toJsonTree(msg);
-        System.out.println(ele);
         return answer;
     }
+
 
     public List<InterfaceMessage> loadMessageFromSaveString(String loadString) throws IOException {
         List<InterfaceMessage> loadedMessages = new ArrayList<>();

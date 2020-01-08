@@ -2,6 +2,10 @@ package com.chanse.messaging.msginterface;
 
 import com.chanse.messaging.exceptions.BaseMessagingException;
 import com.chanse.messaging.messages.InterfaceMessage;
+import com.chanse.messaging.utils.MessagingSaveable;
+import com.chanse.messaging.utils.SaveLoadUtils;
+import com.chanse.messaging.words.InterfaceDataWord;
+import com.google.gson.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +13,7 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -20,7 +25,7 @@ import java.util.List;
  * - String Message Decoder (A String in the first bytes of the object tells it what message it is)
  * - Http decoders (I'm more or less spit balling here)
  */
-public abstract class InterfaceDecoder {
+public abstract class InterfaceDecoder implements MessagingSaveable {
 
     @Getter
     @Setter
@@ -63,4 +68,5 @@ public abstract class InterfaceDecoder {
      * @return List of all messages that were contained on the buffer
      */
     public abstract List<InterfaceMessage> decodeMessages(int maxMessages) throws IOException, BaseMessagingException;
+
 }

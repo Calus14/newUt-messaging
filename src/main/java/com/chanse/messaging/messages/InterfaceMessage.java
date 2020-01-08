@@ -1,5 +1,6 @@
 package com.chanse.messaging.messages;
 
+import com.chanse.messaging.utils.MessagingSaveable;
 import com.chanse.messaging.utils.SaveLoadUtils;
 import com.chanse.messaging.words.InterfaceDataWord;
 import com.google.gson.*;
@@ -9,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class InterfaceMessage implements Cloneable{
-
-    @Setter(AccessLevel.NONE)
-    protected String myClassName = this.getClass().getName();
+public abstract class InterfaceMessage implements MessagingSaveable, Cloneable{
 
     // Each message will hold a static reference to memory so that it will only calculate the given binary string
     // if a field has been updated on it.
@@ -80,7 +79,6 @@ public abstract class InterfaceMessage implements Cloneable{
         }
 
         clone.setMessageName(this.getMessageName());
-        clone.myClassName = this.getMyClassName();
         clone.messageAsSerialString = new StringBuffer(this.getMessageAsSerialString());
         this.dataWords.stream().forEach( word -> {
             clone.addDataWord(word.clone());
@@ -122,19 +120,4 @@ public abstract class InterfaceMessage implements Cloneable{
             }
         }
     };
-
-    public static class InterfaceMessageDeserializer implements JsonDeserializer<InterfaceMessage>{
-        @Override
-        public InterfaceMessage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            try {
-                Class messageType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
-                return (InterfaceMessage)SaveLoadUtils.myGson.fromJson(json, messageType);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-                return null;
-            }
-        }
-    }
-
 }
