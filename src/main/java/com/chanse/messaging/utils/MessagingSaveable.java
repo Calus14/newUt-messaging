@@ -5,15 +5,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-import static javafx.scene.input.KeyCode.T;
-
 public interface MessagingSaveable {
 
     default String getMyClassName() {
         return this.getClass().getName();
     }
 
-    public static class MessageSaveableAdapter implements JsonDeserializer<MessagingSaveable>, JsonSerializer<MessagingSaveable> {
+    class MessageSaveableAdapter implements JsonDeserializer<MessagingSaveable>, JsonSerializer<MessagingSaveable> {
         @Override
         public MessagingSaveable deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             try {

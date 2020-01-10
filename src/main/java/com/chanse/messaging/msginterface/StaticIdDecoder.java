@@ -200,22 +200,21 @@ public class StaticIdDecoder extends InterfaceDecoder{
                 decoder.idPeekInfoList = SaveLoadUtils.myRegisteredGson.fromJson(idPeekInfoJson, peekListType);
 
                 JsonObject idToMessageMapJson = decoderAsJSon.getAsJsonObject("idToMessageMap");
-                HashMap<String, InterfaceMessage> stringtoMessageMap =
-                                        SaveLoadUtils.myRegisteredGson.fromJson(idPeekInfoJson, idMapType);
-                /*
-                Convert comma separated String to List
+                HashMap<String, InterfaceMessage> stringToMessageMap =
+                                        SaveLoadUtils.myRegisteredGson.fromJson(idToMessageMapJson, idMapType);
 
-List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
-The above code splits the string on a delimiter defined as: zero or more whitespace, a literal comma, zero or more whitespace which will place the words into the list and collapse any whitespace between the words and commas.
+                for(Map.Entry<String, InterfaceMessage> e : stringToMessageMap.entrySet()){
+                    // The format that the key will be is "[#, #, ...]"
+                    String[] numberStrings = e.getKey().substring(1, e.getKey().length()-1).split(",");
 
-Please note that this returns simply a wrapper on an array: you CANNOT for example .remove() from the resulting List. For an
-                 */
-                for(Map.Entry e : )
+                    List<BigInteger> idKeys = new ArrayList<>();
+                    for(String s : numberStrings){
+                        BigInteger key = new BigInteger(s.trim());
+                        idKeys.add(key);
+                    }
 
-                //Type mapType = new TypeToken<HashMap<>>
-
-
-                Class messageType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
+                    decoder.idToMessageMap.put(idKeys, e.getValue());
+                }
 
                 return decoder;
             } catch (Exception e) {
