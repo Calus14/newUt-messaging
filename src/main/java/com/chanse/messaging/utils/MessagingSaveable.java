@@ -17,7 +17,7 @@ public interface MessagingSaveable {
             try {
                 Class messageType = Class.forName(((JsonObject) json).get("myClassName").getAsString());
 
-                return (MessagingSaveable)SaveLoadUtils.myRegisteredGson.fromJson(json, messageType);
+                return (MessagingSaveable)SaveLoadUtils.Instance.myRegisteredGson.fromJson(json, messageType);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -29,7 +29,7 @@ public interface MessagingSaveable {
         public JsonElement serialize(MessagingSaveable src, Type typeOfSrc, JsonSerializationContext context) {
             try {
                 Type childType = TypeToken.get(Class.forName(src.getMyClassName())).getType();
-                JsonObject objectJson = (JsonObject)SaveLoadUtils.myRegisteredGson.toJsonTree(src, childType);
+                JsonObject objectJson = (JsonObject)SaveLoadUtils.Instance.myRegisteredGson.toJsonTree(src, childType);
                 objectJson.addProperty("myClassName", src.getMyClassName());
                 return objectJson;
             } catch (ClassNotFoundException e) {

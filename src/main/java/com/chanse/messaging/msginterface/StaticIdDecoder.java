@@ -191,17 +191,16 @@ public class StaticIdDecoder extends InterfaceDecoder{
         @Override
         public StaticIdDecoder deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-
             try {
                 StaticIdDecoder decoder = new StaticIdDecoder();
 
                 JsonObject decoderAsJSon = (JsonObject)json;
                 JsonArray idPeekInfoJson = decoderAsJSon.getAsJsonArray("idPeekInfoList");
-                decoder.idPeekInfoList = SaveLoadUtils.myRegisteredGson.fromJson(idPeekInfoJson, peekListType);
+                decoder.idPeekInfoList = SaveLoadUtils.Instance.myRegisteredGson.fromJson(idPeekInfoJson, peekListType);
 
                 JsonObject idToMessageMapJson = decoderAsJSon.getAsJsonObject("idToMessageMap");
                 HashMap<String, InterfaceMessage> stringToMessageMap =
-                                        SaveLoadUtils.myRegisteredGson.fromJson(idToMessageMapJson, idMapType);
+                                        SaveLoadUtils.Instance.myRegisteredGson.fromJson(idToMessageMapJson, idMapType);
 
                 for(Map.Entry<String, InterfaceMessage> e : stringToMessageMap.entrySet()){
                     // The format that the key will be is "[#, #, ...]"

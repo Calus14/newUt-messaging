@@ -4,6 +4,7 @@ import com.chanse.messaging.fields.InterfaceDataField;
 import com.chanse.messaging.messages.InterfaceMessage;
 import com.chanse.messaging.msginterface.InterfaceDecoder;
 import com.chanse.messaging.msginterface.StaticIdDecoder;
+import com.chanse.messaging.transport.TransportService;
 import com.chanse.messaging.words.InterfaceDataWord;
 import com.google.gson.*;
 
@@ -17,12 +18,14 @@ import java.util.List;
  */
 public class SaveLoadUtils {
 
+    public static final JsonParser jsonParser = new JsonParser();
+
     // A standard gson object so we can do standard serialization and add properties or manipulate properties later
     // there is probabaly a better way to do this...
     public static final Gson defaultGson = new Gson();
 
     // The Custom Gson mapper that will be used by this actual service
-    public static Gson myRegisteredGson;
+    public Gson myRegisteredGson;
 
     public static SaveLoadUtils Instance = new SaveLoadUtils();
 
@@ -33,6 +36,7 @@ public class SaveLoadUtils {
                 .registerTypeAdapter(InterfaceDataField.class, new MessagingSaveable.MessageSaveableAdapter())
                 .registerTypeAdapter(InterfaceDecoder.class, new MessagingSaveable.MessageSaveableAdapter())
                 .registerTypeAdapter(StaticIdDecoder.class, new StaticIdDecoder.StaticIdDecoderAdapter())
+                .registerTypeAdapter(TransportService.class, new TransportService.TransportServiceAdapter())
                 .setPrettyPrinting()
                 .create();
     }
@@ -110,5 +114,13 @@ public class SaveLoadUtils {
         reader.close();
 
         return loadedDecoders;
+    }
+
+    public String getTransportServiceAsJson(TransportService transportService){
+        return myRegisteredGson.toJson(transportService, TransportService.class);
+    }
+
+    public TransportService getTransportServiceFromJson(String serviceAsJson) {
+        return myRegisteredGson.fromJson(serviceAsJson, TransportService.class);
     }
 }
