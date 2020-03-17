@@ -25,6 +25,10 @@ tasks.withType(JavaCompile) {
     options.warnings = false
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 publishing {
     publications {
         domain(MavenPublication) {

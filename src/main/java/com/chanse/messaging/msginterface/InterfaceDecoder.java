@@ -31,6 +31,10 @@ public abstract class InterfaceDecoder implements MessagingSaveable {
     @Setter
     transient protected InputStream inputStream;
 
+    @Getter
+    @Setter
+    protected String decoderName;
+
     public InterfaceDecoder(InputStream inputStream){
         this.inputStream = inputStream;
     }
