@@ -4,8 +4,10 @@ import com.chanse.messaging.utils.BitUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +30,11 @@ public class EnumDataField extends InterfaceDataField<EnumDataField.FieldSpecifi
     static public class FieldSpecificEnum{
         protected String enumName;
         protected Integer enumValue;
+    }
+
+    public EnumDataField(){
+        super();
+        this.allowedEnums = new ArrayList<FieldSpecificEnum>();
     }
 
     protected List<FieldSpecificEnum> allowedEnums;

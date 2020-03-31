@@ -149,8 +149,6 @@ public class BitUtils {
         //TODO This method COULD be improved if done using purely primitives and binary operators. Using a String
         // Object and a big Integer Object has a cost associated with it.
 
-        if(field.getDataBinaryString().startsWith("-"))
-            System.out.println();
 
         StringBuffer wordDataBinaryString = new StringBuffer(word.getWordDataAsBinaryString());
         wordDataBinaryString.replace((int) field.getBitOffset(), (int) (field.getBitOffset() + field.getBitLength()), field.getDataBinaryString());

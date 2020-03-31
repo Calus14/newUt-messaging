@@ -8,16 +8,15 @@ import com.chanse.messaging.messages.StandardMessage;
 import com.chanse.messaging.msginterface.StaticIdDecoder;
 import com.chanse.messaging.utils.SaveLoadUtils;
 import com.chanse.messaging.words.StandardDataWord;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
+import static org.junit.Assert.*;
+
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 
 class TCPTransportationServiceImplTest {
@@ -32,7 +31,7 @@ class TCPTransportationServiceImplTest {
     StandardMessage message2;
     StandardMessage message3;
 
-    @BeforeEach
+    @Before
     protected void setup() throws Exception{
         setUpDecoders();
 
@@ -50,7 +49,7 @@ class TCPTransportationServiceImplTest {
         myServerServiceImpl.setup();
     }
 
-    @AfterEach
+    @After
     public void teardown(){
         try {
             myClientServiceImpl.disconnect();
